@@ -8,13 +8,25 @@ import { ProductSectionComponent } from './product-section/product-section.compo
 import { OwlCarouselComponent } from './owl-carousel/owl-carousel.component';
 import { OwlModule } from 'ngx-owl-carousel';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ProductPageComponent } from './product-page/product-page.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { BlogPageComponent } from './blog-page/blog-page.component';
+import { ArticlePageComponent } from './article-page/article-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductSectionComponent,
     OwlCarouselComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProductPageComponent,
+    CategoryPageComponent,
+    LoginPageComponent,
+    CartPageComponent,
+    BlogPageComponent,
+    ArticlePageComponent
   ],
   imports: [
     BrowserModule,
