@@ -7,12 +7,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductSectionComponent } from './product-section/product-section.component';
 import { OwlCarouselComponent } from './owl-carousel/owl-carousel.component';
 import { OwlModule } from 'ngx-owl-carousel';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductSectionComponent,
-    OwlCarouselComponent
+    OwlCarouselComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
