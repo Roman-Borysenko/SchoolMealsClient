@@ -1,1 +1,26 @@
-<p>blog-page works!</p>
+<div class="bread__crumbs">
+    <h1>Blog</h1>
+</div>
+
+<section class="blog">
+    <article *ngFor="let item of articles" class="blog__article">
+        <div class="blog__article__images">
+            <a href="#">
+                <img src="assets/images/blog/bsm_product_image.jpg" alt="article">
+            </a>
+        </div>
+        <div class="blog__article__context">
+            <h2><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing.</a></h2>
+            <div class="blog__article__info">
+                <div class="info">
+                    <i class="far fa-calendar"></i> January 18, 2020
+                </div>
+                <div class="info">
+                    <i class="fas fa-edit"></i> By Admin
+                </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam enim doloremque labore reiciendis quam dolore nemo modi saepe, amet quae blanditiis tempore natus in error perspiciatis eum officia impedit exercitationem?</p>
+            <a class="read__more" href="#">Read more</a>
+        </div>
+    </article>
+</section>

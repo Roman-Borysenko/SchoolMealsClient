@@ -14,6 +14,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { BlogPageComponent } from './blog-page/blog-page.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { ProductButtonsComponent } from './product-buttons/product-buttons.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,16 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     LoginPageComponent,
     CartPageComponent,
     BlogPageComponent,
-    ArticlePageComponent
+    ArticlePageComponent,
+    ProductButtonsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    OwlModule
+    OwlModule,
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

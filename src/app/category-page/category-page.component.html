@@ -1,1 +1,103 @@
-<p>category-page works!</p>
+<div class="bread__crumbs">
+    <h1>Subcategory</h1>
+    <div class="bread__crumbs__container">
+        <a href="#">Category</a>
+        <a href="#">Subcategory</a>
+    </div>
+</div>
+
+<section class="page-section-products product__category__page">
+
+    <aside class="product__filter">
+
+        <div class="filter__container">
+            <div class="filter__container__header">
+                <h3>Filter by components</h3>
+            </div>
+
+            <div class="filte__container__body filter__by__components">
+                <a class="active" href="#">Adipiscing</a>
+                <a href="#">augue</a>
+                <a href="#">Bibendum</a>
+                <a href="#">Cras</a>
+                <a href="#">Dapibus</a>
+                <a href="#">eget</a>
+                <a href="#">Etiam</a>
+                <a href="#">Leo</a>
+                <a href="#">Pretium</a>
+                <a href="#">quis</a>
+                <a href="#">sem</a>
+                <a href="#">ultricies</a>
+                <a href="#">viverra</a>
+            </div>
+        </div>
+
+        <div class="filter__container">
+            <div class="filter__container__header">
+                <h3>Filter by components</h3>
+            </div>
+
+            <div class="filte__container__body filter__by__calories">
+                <div class="filter__calories">
+                    <!-- <input type="text" class="range__slider" data-min="0" data-max="1000" name="calories" value="" /> -->
+                    <mat-slider min="1" max="100" step="1" value="0"></mat-slider>
+                </div>
+            </div>
+        </div>
+        
+    </aside>
+
+    <div class="product__items">
+        <div class="product__items__header">
+            <div class="product__items__left">
+                <div class="product__items__view">
+                    <i class="fas fa-th-large active"></i>
+                    <i class="fas fa-th-list"></i>
+                </div>
+                <div class="product__items__quantity">
+                    Showing all 11 results
+                </div>
+            </div>
+            <div class="product__items__right">
+                <select>
+                    <option value="1" selected>Default sorting</option>
+                    <option value="2">Sort by popularity</option>
+                    <option value="3">Sort by average rating</option>
+                    <option value="4">Sort by latest</option>
+                    <option value="5">Sort by price: low to high</option>
+                    <option value="6">Sort by price: high to low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="page-products-container">    
+            <div *ngFor="let item of products" class="page-product">
+                <div class="page-product-img">
+                    <a href="#">
+                        <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Product">
+                        <app-product-buttons></app-product-buttons>
+                    </a>
+                </div>
+                <div class="page-product-description">
+                    <a href="#">Pizza Margherita</a>
+                    <p class="product-category-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione excepturi quae neque a perferendis beatae voluptatem provident fugiat laudantium eius rem numquam, molestias accusamus hic odit nostrum officia, quisquam reiciendis!</p>
+                    <h4>Composition: </h4>
+                    <p>
+                        <span>Test</span>
+                        <span>Test</span>
+                        <span>Testasd</span>
+                        <span>Test Test</span>
+                        <span>Test</span>
+                        <span>Test test</span>
+                        <span>Test</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="product__loader">
+            <button>10 more</button>
+        </div>
+    </div>
+</section>

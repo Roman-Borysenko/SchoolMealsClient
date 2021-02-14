@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faEye, faShoppingBasket, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-product-section',
@@ -8,9 +7,7 @@ import { faEye, faShoppingBasket, faHeart } from '@fortawesome/free-solid-svg-ic
 })
 export class ProductSectionComponent implements OnInit {
 
-  faEye = faEye;
-  faShoppingBasket = faShoppingBasket;
-  faHeart = faHeart;
+  products: Array<any> = new Array(4);
 
   constructor() { }
 

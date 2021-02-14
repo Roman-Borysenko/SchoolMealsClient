@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryPageComponent implements OnInit {
 
+  products: Array<any> = new Array(10);
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,21 +1,11 @@
 <section class="page-section-products">
     <h2>Lorem, ipsum dolor.</h2>
     <div class="page-products-container">    
-        <div class="page-product">
+        <div *ngFor="let item of products" class="page-product">
             <div class="page-product-img">
                 <a href="#">
                     <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Product">
-                    <div class="page-product-img-panel">
-                        <button onclick="return false" class="btn-side btn-side-view">
-                            <fa-icon [icon]="faEye"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-center">
-                            <fa-icon [icon]="faShoppingBasket"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-side">
-                            <fa-icon [icon]="faHeart"></fa-icon>
-                        </button>
-                    </div>
+                    <app-product-buttons></app-product-buttons>
                 </a>
             </div>
             <div class="page-product-description">
@@ -27,102 +17,6 @@
                     <span>Test Test</span>
                     <span>Test</span>
                     <span>Test test</span>
-                    <span>Test</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="page-product">
-            <div class="page-product-img">
-                <a href="#">
-                    <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Product">
-
-                    <div class="page-product-img-panel">
-                        <button onclick="return false" class="btn-side btn-side-view">
-                            <fa-icon [icon]="faEye"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-center">
-                            <fa-icon [icon]="faShoppingBasket"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-side">
-                            <fa-icon [icon]="faHeart"></fa-icon>
-                        </button>
-                    </div>
-                </a>
-            </div>
-            <div class="page-product-description">
-                <a href="#">Pizza Margherita</a>
-                <p>
-                    <span>Test</span>
-                    <span>Test</span>
-                    <span>Testasd</span>
-                    <span>Test Test</span>
-                    <span>Test</span>
-                    <span>Test test test</span>
-                    <span>Test</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="page-product">
-            <div class="page-product-img">
-                <a href="#">
-                    <img src="assets/images/products/demo1-0902061147-1-238x238.jpg" alt="Product">
-
-                    <div class="page-product-img-panel">
-                        <button onclick="return false" class="btn-side btn-side-view">
-                            <fa-icon [icon]="faEye"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-center">
-                            <fa-icon [icon]="faShoppingBasket"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-side">
-                            <fa-icon [icon]="faHeart"></fa-icon>
-                        </button>
-                    </div>
-                </a>
-            </div>
-            <div class="page-product-description">
-                <a href="#">Pizza Margherita</a>
-                <p>
-                    <span>Test</span>
-                    <span>Test</span>
-                    <span>Testasd</span>
-                    <span>Test Test</span>
-                    <span>Test</span>
-                    <span>Test test test</span>
-                    <span>Test</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="page-product">
-            <div class="page-product-img">
-                <a href="#">
-                    <img src="assets/images/products/demo1-0902061147-1-238x238.jpg" alt="Product">
-
-                    <div class="page-product-img-panel">
-                        <button onclick="return false" class="btn-side btn-side-view">
-                            <fa-icon [icon]="faEye"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-center">
-                            <fa-icon [icon]="faShoppingBasket"></fa-icon>
-                        </button>
-                        <button onclick="return false" class="btn-side">
-                            <fa-icon [icon]="faHeart"></fa-icon>
-                        </button>
-                    </div>
-                </a>
-            </div>
-            <div class="page-product-description">
-                <a href="#">Pizza Margherita</a>
-                <p>
-                    <span>Test</span>
-                    <span>Test</span>
-                    <span>Testasd</span>
-                    <span>Test Test</span>
-                    <span>Test</span>
-                    <span>Test test test</span>
                     <span>Test</span>
                 </p>
             </div>

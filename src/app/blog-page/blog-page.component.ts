@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogPageComponent implements OnInit {
 
+  articles:Array<any> = new Array(6);
+
   constructor() { }
 
   ngOnInit(): void {

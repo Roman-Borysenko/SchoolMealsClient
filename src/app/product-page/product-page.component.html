@@ -1,1 +1,45 @@
-<p>product-page works!</p>
+<div class="bread__crumbs">
+    <h1>Subcategory</h1>
+    <div class="bread__crumbs__container">
+        <a href="#">Category</a>
+        <a href="#">Subcategory</a>
+    </div>
+</div>
+
+<section class="product__page">
+    <div class="product__page__container">
+        <div class="product__images">
+            <img src="assets/images/big-products/8.jpg" alt="Slide">
+        </div>
+
+        <div class="product__description">
+            <h1>Antique Short Dress</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat.</p>
+            <div class="product-popup-quantity">
+                <span>Qty:</span>
+                <button class="product-popup-btn">&minus;</button>
+                <input type="number" name="quantity" min="0" value="0">
+                <button class="product-popup-btn">+</button>
+                <button class="btn-add-cart">Add to cart</button>
+            </div>
+            <div class="product-popup-footer">
+                <p>
+                    <span>Categories:</span>
+                    <a href="#">Chicken Fiesta</a>,
+                    <a href="#">Creamy Paneer</a>,
+                    <a href="#">Golden Corn</a>,
+                    <a href="#">Tandoori Paneer</a>,
+                    <a href="#">Veggie Paradise</a>,
+                </p>
+
+                <p>
+                    <span>Tags:</span>
+                    <a href="#">Dapibus</a>,
+                    <a href="#">Viverra</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-product-section></app-product-section>

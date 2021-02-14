@@ -7,7 +7,7 @@ import { Component, HostListener } from '@angular/core';
 })
 export class AppComponent {
   title = 'SchoolMeals';
-  isMain = true;
+  isMain = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
