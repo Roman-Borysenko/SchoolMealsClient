@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  // @Output() onMain: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output('activate') activateEvents: EventEmitter<any> = new EventEmitter<any>();
+  
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

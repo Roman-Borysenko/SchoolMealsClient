@@ -10,13 +10,14 @@ import { ProductPageComponent } from "./product-page/product-page.component";
 
 
 const routes: Routes = [
-  {path: "", component: MainPageComponent},
-  {path: "login", component: LoginPageComponent},
-  {path: "category", component: CategoryPageComponent},
-  {path: "product", component: ProductPageComponent},
-  {path: "cart", component: CartPageComponent},
-  {path: "blog", component: BlogPageComponent},
-  {path: "article", component: ArticlePageComponent},
+  { path: "", component: MainPageComponent },
+  { path: "login", component: LoginPageComponent },
+  { path: "cart", component: CartPageComponent },
+  { path: "blog", component: BlogPageComponent },
+  { path: "blog/:slug", component: ArticlePageComponent },
+  { path: ":slug", component: CategoryPageComponent },
+  { path: ":category/:subcategory", component: CategoryPageComponent },
+  { path: ":category/:slug/:product", component: ProductPageComponent }
 ];
 
 @NgModule({

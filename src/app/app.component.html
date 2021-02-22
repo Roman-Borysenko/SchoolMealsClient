@@ -43,40 +43,16 @@
 <header>
     <div class="header">
         <div class="header__logo">
-            <a href="#"><span>School</span>Food</a>
+            <a [routerLink]="[ '/' ]"><span>School</span>Food</a>
         </div>
         <nav class="header__menu">
             <ul>
-                <li class="header_submenu">
-                    <a href="#">Test</a>
-                    <ul>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
+                <li *ngFor="let category of categories" [ngClass]="{'header_submenu': category.length > 0}">
+                    <a [routerLink]="[ 'category' ]">Test</a>
+                    <ul *ngIf="category.length > 0">
+                        <li *ngFor="let item of category"><a [routerLink]="[ 'category', 'subcategory' ]">Subcategory</a></li>
                     </ul>
                 </li>
-                <li class="header_submenu">
-                    <a href="#">Test</a>
-                    <ul>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Test</a></li>
-                <li><a href="#">Test</a></li>
-                <li class="header_submenu">
-                    <a href="#">Test</a>
-                    <ul>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                        <li><a href="#">Subcategory</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Test</a></li>
             </ul>
             <a class="header__order__delete"></a>
         </nav>
@@ -86,19 +62,7 @@
                 <span>10</span>
                 <div class="header__bar__order">
                     <ul>
-                        <li>
-                            <div class="header__order_container">
-                                <a href="#" class="header__order__delete"></a>
-                                <div class="header__order__img">
-                                    <img src="assets/images/demo1-0902091382-1-55x55.jpg" alt="Order">
-                                </div>
-                                <div class="header__order__title">
-                                    <a href="#">Pizza Formaggi - thick, 25cm</a>
-                                    <span>1 × $13.99</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
+                        <li *ngFor="let item of cartProducts">
                             <div class="header__order_container">
                                 <a href="#" class="header__order__delete"></a>
                                 <div class="header__order__img">
@@ -128,11 +92,11 @@
     </div>
 </header>
 
-<app-owl-carousel *ngIf="isMain"></app-owl-carousel>
+<app-owl-carousel *ngIf="showSlider"></app-owl-carousel>
 
 <div class="page-content">
   <div class="container">
-      <router-outlet></router-outlet>
+      <router-outlet (activate)='onActivate($event)'></router-outlet>
   </div>
 </div>
 
@@ -144,11 +108,11 @@
 
       <div class="footer__information">
           <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Test</a></li>
-              <li><a href="#">Test</a></li>
-              <li><a href="#">FAQ</a></li>
+                <li><a [routerLink]="[ '/blog' ]">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Test</a></li>
+                <li><a href="#">FAQ</a></li>
           </ul>
       </div>
 

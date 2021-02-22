@@ -890,14 +890,14 @@ footer {
     font-size: 20px;
     color: #ffce09;
 }
-.product__items__view i {
+.product__items__view fa-icon {
     margin-right: 10px;
     transition: all .5s;
 }
-.product__items__view i.active {
+.product__items__view fa-icon.active {
     color: #ee2e24;
 }
-.product__items__view i:hover {
+.product__items__view fa-icon:hover {
     cursor: pointer;
     color: #ee2e24;
 }

@@ -39,7 +39,6 @@
 
             <div class="filte__container__body filter__by__calories">
                 <div class="filter__calories">
-                    <!-- <input type="text" class="range__slider" data-min="0" data-max="1000" name="calories" value="" /> -->
                     <mat-slider min="1" max="100" step="1" value="0"></mat-slider>
                 </div>
             </div>
@@ -51,8 +50,8 @@
         <div class="product__items__header">
             <div class="product__items__left">
                 <div class="product__items__view">
-                    <i class="fas fa-th-large active"></i>
-                    <i class="fas fa-th-list"></i>
+                    <fa-icon [icon]="faThLarge" [ngClass]="{'active': isGrid}" (click)="isGrid = true"></fa-icon>
+                    <fa-icon [icon]="faThList" [ngClass]="{'active': !isGrid}" (click)="isGrid = false"></fa-icon>
                 </div>
                 <div class="product__items__quantity">
                     Showing all 11 results
@@ -70,16 +69,16 @@
             </div>
         </div>
 
-        <div class="page-products-container">    
+        <div class="page-products-container" [ngClass]="{'page-product-list': !isGrid}">    
             <div *ngFor="let item of products" class="page-product">
                 <div class="page-product-img">
-                    <a href="#">
+                    <a [routerLink]="[ '/category', 'subcategory', 'dish' ]">
                         <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Product">
                         <app-product-buttons></app-product-buttons>
                     </a>
                 </div>
                 <div class="page-product-description">
-                    <a href="#">Pizza Margherita</a>
+                    <a [routerLink]="[ '/category', 'subcategory', 'dish' ]">Pizza Margherita</a>
                     <p class="product-category-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione excepturi quae neque a perferendis beatae voluptatem provident fugiat laudantium eius rem numquam, molestias accusamus hic odit nostrum officia, quisquam reiciendis!</p>
                     <h4>Composition: </h4>
                     <p>

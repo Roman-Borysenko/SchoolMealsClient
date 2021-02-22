@@ -17,6 +17,7 @@ import { ArticlePageComponent } from './article-page/article-page.component';
 import { ProductButtonsComponent } from './product-buttons/product-buttons.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { BlogSectionComponent } from './blog-section/blog-section.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatSliderModule } from '@angular/material/slider';
     CartPageComponent,
     BlogPageComponent,
     ArticlePageComponent,
-    ProductButtonsComponent
+    ProductButtonsComponent,
+    BlogSectionComponent
   ],
   imports: [
     BrowserModule,

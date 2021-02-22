@@ -5,12 +5,12 @@
 <section class="blog">
     <article *ngFor="let item of articles" class="blog__article">
         <div class="blog__article__images">
-            <a href="#">
+            <a [routerLink]="[ '/blog', 'article' ]">
                 <img src="assets/images/blog/bsm_product_image.jpg" alt="article">
             </a>
         </div>
         <div class="blog__article__context">
-            <h2><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing.</a></h2>
+            <h2><a [routerLink]="[ '/blog', 'article' ]">Lorem ipsum dolor sit amet consectetur adipisicing.</a></h2>
             <div class="blog__article__info">
                 <div class="info">
                     <i class="far fa-calendar"></i> January 18, 2020
