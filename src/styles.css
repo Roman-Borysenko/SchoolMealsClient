@@ -984,7 +984,11 @@ footer {
     grid-template-columns: 5fr 7fr;
     grid-gap: 50px;
 }
-.product__images > img {
+.product__images .ngxImageZoomContainer {
+    width: 100% !important;
+    height: auto !important;
+}
+.product__images img {
     width: 100%;
 }
 .product__description {

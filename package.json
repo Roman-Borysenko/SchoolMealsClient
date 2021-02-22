@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "jquery": "^3.5.1",
+    "ngx-image-zoom": "^0.6.0",
     "ngx-owl-carousel": "^2.0.7",
     "owl.carousel": "^2.3.4",
     "rxjs": "~6.6.0",

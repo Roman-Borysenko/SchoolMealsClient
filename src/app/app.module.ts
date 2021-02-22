@@ -18,6 +18,7 @@ import { ProductButtonsComponent } from './product-buttons/product-buttons.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { BlogSectionComponent } from './blog-section/blog-section.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BlogSectionComponent } from './blog-section/blog-section.component';
     FontAwesomeModule,
     OwlModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    NgxImageZoomModule
   ],
   providers: [],
   bootstrap: [AppComponent]
