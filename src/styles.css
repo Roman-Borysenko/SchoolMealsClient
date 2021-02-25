@@ -108,6 +108,7 @@ ul {
 }
 .product-popup-quantity input,
 .product-popup-quantity .product-popup-btn {
+    margin-right: 5px;
     padding: 10px;
     outline: none;
     border: 1px solid #cdcdcd;
@@ -598,8 +599,9 @@ header {
 }
 .page-product-img-panel {
     position: absolute;
-    width: 100%;
     bottom: -50px;
+    z-index: 9999;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 15px;

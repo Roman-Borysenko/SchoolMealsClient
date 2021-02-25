@@ -58,7 +58,9 @@
         </nav>
         <div class="header__bar">
             <div class="header__bar__basket">
-                <img src="assets/images/icons/basket.svg" alt="Basket">
+                <a [routerLink]="[ '/cart' ]">
+                    <img src="assets/images/icons/basket.svg" alt="Basket">
+                </a>
                 <span>10</span>
                 <div class="header__bar__order">
                     <ul>

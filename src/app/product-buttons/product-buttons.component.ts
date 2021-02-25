@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faEye, faShoppingBasket, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { ForwardingMessagesService } from '../services/forwarding-messages.service';
 
 @Component({
   selector: 'app-product-buttons',
@@ -12,9 +13,16 @@ export class ProductButtonsComponent implements OnInit {
   faShoppingBasket = faShoppingBasket;
   faHeart = faHeart;
 
-  constructor() { }
+  constructor(private forwardingMessages: ForwardingMessagesService) { }
 
   ngOnInit(): void {
+  }
+
+  onShowPopup($event: any): void {
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    this.forwardingMessages.triggerOnShowPopup();
   }
 
 }
