@@ -20,6 +20,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
+import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProductPopupComponent } from './product-popup/product-popup.component';
     ArticlePageComponent,
     ProductButtonsComponent,
     BlogSectionComponent,
-    ProductPopupComponent
+    ProductPopupComponent,
+    BreadCrumbsComponent
   ],
   imports: [
     BrowserModule,

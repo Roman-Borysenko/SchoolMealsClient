@@ -1,11 +1,11 @@
 /* @import url("animations.css"); */
 
-/* @font-face {
+@font-face {
     font-family: 'SansitaSwashed';
-    src: url('../fonts/SansitaSwashed-VariableFont_wght.ttf');
+    src: url('/assets/fonts/SansitaSwashed-VariableFont_wght.ttf');
     font-weight: normal;
     font-style: normal;
-} */
+}
 
 * {
     margin: 0;

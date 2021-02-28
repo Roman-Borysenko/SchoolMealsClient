@@ -2,7 +2,10 @@
     <div class="product-popup" [ngClass]="{'pupup-active': isShow}">
         <div class="product-popup-container">
             <div class="product-popup-img">
-                <img src="assets/images/products/8.jpg" alt="Product">
+                <lib-ngx-image-zoom
+                    thumbImage="assets/images/resize-480-585/8.jpg"
+                    fullImage="assets/images/big-products/8.jpg"
+                ></lib-ngx-image-zoom>
             </div>
             <div class="product-popup-text">
                 <div class="popup-close" (click)="isShow = !isShow">
