@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { ProductPopupComponent } from './product-popup/product-popup.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
     BlogPageComponent,
     ArticlePageComponent,
     ProductButtonsComponent,
-    BlogSectionComponent
+    BlogSectionComponent,
+    ProductPopupComponent
   ],
   imports: [
     BrowserModule,

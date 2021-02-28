@@ -600,7 +600,6 @@ header {
 .page-product-img-panel {
     position: absolute;
     bottom: -50px;
-    z-index: 9999;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

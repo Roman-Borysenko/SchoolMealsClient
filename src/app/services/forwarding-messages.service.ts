@@ -14,7 +14,7 @@ export class ForwardingMessagesService {
     return this._trigger.asObservable();
   }
 
-  public triggerOnShowPopup() {
+  public triggerOnShowPopup() { 
     this._trigger.next();
   }
 }
