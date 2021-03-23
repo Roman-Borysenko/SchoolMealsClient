@@ -1,6 +1,23 @@
 import { Component, ComponentFactoryResolver, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
 import { ForwardingMessagesService } from './services/forwarding-messages.service';
+import { RequestService } from './services/request.service';
+
+export interface LanguageModel {
+  id: number;
+  name: string;
+  slug: string;
+  nameAbbreviation: string;
+  default: boolean;
+}
+
+export interface CategoryModel {
+  slug: string;
+  name: string;
+  categories: Array<CategoryModel>;
+}
 
 @Component({
   selector: 'app-root',
@@ -11,22 +28,38 @@ export class AppComponent {
   @ViewChild('productPopup', { read: ViewContainerRef }) productPopup: any;
   productPopupComponentRef: any = null;
 
+  env = environment;
+
   title = 'SchoolMeals';
   showSlider = false;
   
-  categories: Array<Array<any>> = new Array(new Array(0), new Array(4), new Array(0), new Array(3), new Array(7), new Array(10));
+  categories: Array<CategoryModel> = Array<CategoryModel>();
+  languages: Array<LanguageModel> = new Array<LanguageModel>();
   cartProducts: Array<any> = new Array(6);
 
   constructor(
     private forwardingMessages: ForwardingMessagesService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private requestService: RequestService,
+    private router : Router
   ) { 
-    console.log("appcomponent ctor");
+    
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => { return false };
+
     this.forwardingMessages.trigger.subscribe(() => this.onShowPopup());
-    console.log("appcomponent ngOnInit");
+
+    // get the list of languages
+    this.requestService.get<Array<LanguageModel>>("api/language").subscribe(res => { 
+      this.languages = res;
+    });
+
+    // get the list of categories
+    this.requestService.get<Array<CategoryModel>>("api/category/getall?lang=" + this.env.language).subscribe(res => { 
+      this.categories = res;
+    });
   }
 
   onShowPopup(): void {
@@ -47,12 +80,23 @@ export class AppComponent {
   }
 
   onActivate(flag: any): void {
-    if (window.location.pathname == '/') {
+    if (window.location.pathname.match("^/[a-zA-Z]{2}$")?.length == 1) {
       this.showSlider = true;
     } else {
       this.showSlider = false;
     }
     console.log(flag);
+  }
+
+  onLangClick(event: any) {
+    if (event.target.innerText) {
+      this.env.language = event.target.innerText.toLowerCase();
+      event.target.parentElement.parentElement.querySelector(".active").removeAttribute("class");
+      event.target.className = "active";
+
+      this.ngOnInit();
+      this.router.navigateByUrl("/"+this.env.language.toLowerCase());
+    }
   }
 
   @HostListener('window:resize', ['$event'])

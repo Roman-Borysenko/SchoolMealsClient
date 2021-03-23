@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { ArticlePageComponent } from "./article-page/article-page.component";
 import { BlogPageComponent } from "./blog-page/blog-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
@@ -10,20 +11,21 @@ import { ProductPageComponent } from "./product-page/product-page.component";
 
 
 const routes: Routes = [
-  { path: "", component: MainPageComponent },
-  { path: "login", component: LoginPageComponent },
-  { path: "cart", component: CartPageComponent },
-  { path: "blog", component: BlogPageComponent },
-  { path: "blog/:slug", component: ArticlePageComponent },
-  { path: ":slug", component: CategoryPageComponent },
-  { path: ":category/:subcategory", component: CategoryPageComponent },
-  { path: ":category/:slug/:product", component: ProductPageComponent }
+  { path: "", redirectTo: environment.language, pathMatch: "full"},
+  { path: ":lang", component: MainPageComponent },
+  { path: ":lang/login", component: LoginPageComponent },
+  { path: ":lang/cart", component: CartPageComponent },
+  { path: ":lang/blog", component: BlogPageComponent },
+  { path: ":lang/blog/:slug", component: ArticlePageComponent },
+  { path: ":lang/:category", component: CategoryPageComponent },
+  { path: ":lang/:category/:subcategory", component: CategoryPageComponent },
+  { path: ":lang/:category/:slug/:product", component: ProductPageComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-
+  
 }

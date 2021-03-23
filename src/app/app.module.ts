@@ -21,6 +21,7 @@ import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
     OwlModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    NgxImageZoomModule
+    NgxImageZoomModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

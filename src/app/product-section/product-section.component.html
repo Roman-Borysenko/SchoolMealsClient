@@ -1,23 +1,17 @@
 <section class="page-section-products">
-    <h2>Lorem, ipsum dolor.</h2>
+    <h2>{{title}}</h2>
     <div class="page-products-container">    
-        <div *ngFor="let item of products" class="page-product">
+        <div *ngFor="let dish of dishes" class="page-product">
             <div class="page-product-img">
                 <a [routerLink]="[ 'category', 'subcategory', 'dish' ]">
-                    <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Product">
+                    <img [src]="env.address + dish.image" alt="Product">
                     <app-product-buttons></app-product-buttons>
                 </a>
             </div>
             <div class="page-product-description">
-                <a [routerLink]="[ 'category', 'subcategory', 'dish' ]">Pizza Margherita</a>
+                <a [routerLink]="[ 'category', 'subcategory', 'dish' ]">{{dish.name}}</a>
                 <p>
-                    <span>Test</span>
-                    <span>Test</span>
-                    <span>Testasd</span>
-                    <span>Test Test</span>
-                    <span>Test</span>
-                    <span>Test test</span>
-                    <span>Test</span>
+                    <span *ngFor="let tag of dish.tags">{{tag.name}}</span>
                 </p>
             </div>
         </div>

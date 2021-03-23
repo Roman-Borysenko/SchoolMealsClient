@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { DishModel } from '../main-page/main-page.component';
 
 @Component({
   selector: 'app-product-section',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductSectionComponent implements OnInit {
 
-  products: Array<any> = new Array(4);
+  @Input() title: string = "";
+  @Input() dishes: Array<DishModel> = new Array<DishModel>();
+
+  env = environment;
 
   constructor() { }
 
