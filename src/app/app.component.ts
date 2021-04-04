@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { DishModel } from './main-page/main-page.component';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
 import { ForwardingMessagesService } from './services/forwarding-messages.service';
 import { RequestService } from './services/request.service';
@@ -36,6 +37,7 @@ export class AppComponent {
   categories: Array<CategoryModel> = Array<CategoryModel>();
   languages: Array<LanguageModel> = new Array<LanguageModel>();
   cartProducts: Array<any> = new Array(6);
+  dish: DishModel = {} as DishModel;
 
   constructor(
     private forwardingMessages: ForwardingMessagesService,
@@ -47,9 +49,9 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => { return false };
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => { return false };
 
-    this.forwardingMessages.trigger.subscribe(() => this.onShowPopup());
+    this.forwardingMessages.trigger.subscribe((dishUrl) => this.onShowPopup(dishUrl));
 
     // get the list of languages
     this.requestService.get<Array<LanguageModel>>("api/language").subscribe(res => { 
@@ -57,12 +59,22 @@ export class AppComponent {
     });
 
     // get the list of categories
-    this.requestService.get<Array<CategoryModel>>("api/category/getall?lang=" + this.env.language).subscribe(res => { 
+    this.requestService.get<Array<CategoryModel>>("api/category/getmaincategories?lang=" + this.env.language).subscribe(res => { 
       this.categories = res;
     });
   }
 
-  onShowPopup(): void {
+  private getDish(dishUrl: string[], callbeck: Function | undefined): void {
+    this.requestService.get<DishModel>("api/dish/getdish?categorySlug=" + dishUrl[0] + "&subcategorySlug=" + (dishUrl[1] ? dishUrl[1] : "") + "&dishSlug=" + dishUrl[2] + "&lang=" + this.env.language)
+      .subscribe(res => {
+        this.dish = res;
+
+        if(callbeck)
+          callbeck();
+      });
+  }
+
+  onShowPopup(dishUrl: string[]): void {
     if (this.productPopupComponentRef == null) {
       this.productPopup.clear();
 
@@ -70,13 +82,12 @@ export class AppComponent {
       this.productPopupComponentRef = this.productPopup.createComponent(productPopupComponent);
     }
 
-    let ppc = (<ProductPopupComponent>(this.productPopupComponentRef.instance));
-    ppc.product = {
-      title: "Cras Eget Augue",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat."
-    };
-
-    ppc.isShow = true;
+    this.getDish(dishUrl, () => {
+        let ppc = (<ProductPopupComponent>(this.productPopupComponentRef.instance));
+        ppc.dish = this.dish;
+        ppc.images = this.dish.image.split('|');
+        ppc.isShow = true;
+    });
   }
 
   onActivate(flag: any): void {
@@ -95,7 +106,7 @@ export class AppComponent {
       event.target.className = "active";
 
       this.ngOnInit();
-      this.router.navigateByUrl("/"+this.env.language.toLowerCase());
+      // this.router.navigateByUrl("/"+this.env.language.toLowerCase());
     }
   }
 

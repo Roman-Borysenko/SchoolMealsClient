@@ -1,13 +1,17 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { IngredientModel } from '../category-page/category-page.component';
 import { RequestService } from '../services/request.service';
 
 export interface DishModel {
+  id: number,
   name: string;
   slug: string;
+  dishUrlSections: string[];
   description: string;
   image: string;
   tags: Array<TagModel>;
+  ingredients: Array<IngredientModel>;
 }
 
 export interface TagModel {

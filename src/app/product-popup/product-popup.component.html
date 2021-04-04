@@ -3,17 +3,17 @@
         <div class="product-popup-container">
             <div class="product-popup-img">
                 <lib-ngx-image-zoom
-                    thumbImage="assets/images/resize-480-585/8.jpg"
-                    fullImage="assets/images/big-products/8.jpg"
+                    thumbImage="{{images.length > 0 ? env.address+images[0] : ''}}"
+                    fullImage="{{images.length > 1 ? env.address+images[1] : ''}}"
                 ></lib-ngx-image-zoom>
             </div>
             <div class="product-popup-text">
                 <div class="popup-close" (click)="isShow = !isShow">
                     <a class="header__order__delete"></a>
                 </div>
-                <h2>{{ product.title }}</h2>
+                <h2>{{ dish.name }}</h2>
                 <p>
-                    {{ product.description }}
+                    {{ dish.description }}
                 </p>
                 <div class="product-popup-quantity">
                     <span>Qty:</span>
@@ -23,19 +23,14 @@
                     <button class="btn-add-cart">Add to cart</button>
                 </div>
                 <div class="product-popup-footer">
-                    <p>
-                        <span>Categories:</span>
-                        <a href="#">Chicken Fiesta</a>,
-                        <a href="#">Creamy Paneer</a>,
-                        <a href="#">Golden Corn</a>,
-                        <a href="#">Tandoori Paneer</a>,
-                        <a href="#">Veggie Paradise</a>,
+                    <p *ngIf="dish.hasOwnProperty('ingredients') && dish.ingredients.length > 0">
+                        <span>Інгредієнти:</span>
+                        <a *ngFor="let ingredient of dish.ingredients">{{ingredient.name}}</a>
                     </p>
     
-                    <p>
-                        <span>Tags:</span>
-                        <a href="#">Dapibus</a>,
-                        <a href="#">Viverra</a>
+                    <p *ngIf="dish.hasOwnProperty('tags') && dish.tags.length > 0">
+                        <span>Теги:</span>
+                        <a *ngFor="let tag of dish.tags">{{tag.name}}</a>
                     </p>
                 </div>
             </div>

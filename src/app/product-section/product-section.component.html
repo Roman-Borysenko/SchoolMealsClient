@@ -3,13 +3,13 @@
     <div class="page-products-container">    
         <div *ngFor="let dish of dishes" class="page-product">
             <div class="page-product-img">
-                <a [routerLink]="[ 'category', 'subcategory', 'dish' ]">
-                    <img [src]="env.address + dish.image" alt="Product">
-                    <app-product-buttons></app-product-buttons>
+                <a [routerLink]="[ '/' + env.language, dish.dishUrlSections[0], dish.dishUrlSections[1] != null ? dish.dishUrlSections[1] : 'dish', dish.dishUrlSections[2] ]">
+                    <img [src]="env.address + dish.image" [alt]="dish.slug">
+                    <app-product-buttons [dishUrl]="dish.dishUrlSections"></app-product-buttons>
                 </a>
             </div>
             <div class="page-product-description">
-                <a [routerLink]="[ 'category', 'subcategory', 'dish' ]">{{dish.name}}</a>
+                <a [routerLink]="[ '/' + env.language, dish.dishUrlSections[0], dish.dishUrlSections[1] != null ? dish.dishUrlSections[1] : 'dish', dish.dishUrlSections[2] ]">{{dish.name}}</a>
                 <p>
                     <span *ngFor="let tag of dish.tags">{{tag.name}}</span>
                 </p>

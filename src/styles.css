@@ -156,6 +156,12 @@ ul {
     line-height: 22px;
     margin-bottom: 10px;
 }
+.product-popup-footer p a {
+    margin: 0px 5px;
+}
+.product-popup-footer p a:not(:last-child)::after {
+    content: ",";
+}
 .product-popup-footer span {
     font-weight: bold;
 }
@@ -889,6 +895,7 @@ footer {
     transform: scale(1.1);
     border-color: #ee2e24;
     color: #ee2e24;
+    cursor: pointer;
 }
 /*--product--*/
 .product__category__page .page-products-container {
@@ -963,6 +970,8 @@ footer {
     margin: 20px 0px;
 }
 .product__loader button {
+    display: flex;
+    align-items: center;
     border: none;
     outline: none;
     background-color: #ee2e24;
@@ -1011,6 +1020,7 @@ footer {
     grid-template-columns: 5fr 7fr;
     grid-gap: 50px;
 }
+.product-popup-img .ngxImageZoomContainer,
 .product__images .ngxImageZoomContainer {
     width: 100% !important;
     height: auto !important;
@@ -1552,3 +1562,45 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     left: 50%;
     transform: translate(-50%, -50%) !important;
 }
+/*--------------loader for button-----------------*/
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    width: 4px;
+    background: #fff;
+    height: 16px;
+    top: 8px;
+    margin-top: -1px;
+  }
+  .lds-facebook.active div {
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left:16px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 24px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 2px;
+      height: 32px;
+    }
+    50%, 100% {
+      top: 8px;
+      height: 16px;
+    }
+  }

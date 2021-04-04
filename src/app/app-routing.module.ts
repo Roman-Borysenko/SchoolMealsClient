@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: ":lang/blog/:slug", component: ArticlePageComponent },
   { path: ":lang/:category", component: CategoryPageComponent },
   { path: ":lang/:category/:subcategory", component: CategoryPageComponent },
-  { path: ":lang/:category/:slug/:product", component: ProductPageComponent }
+  { path: ":lang/:category/:subcategory/:product", component: ProductPageComponent }
 ];
 
 @NgModule({

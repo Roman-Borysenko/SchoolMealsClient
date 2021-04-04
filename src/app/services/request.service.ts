@@ -16,4 +16,8 @@ export class RequestService {
   public get<T>(url: string): Observable<T> {
     return this.http.get<T>(this.env.address + url);
   }
+
+  public post<T>(url: string, data: object): Observable<T> {
+    return this.http.post<T>(this.env.address + url, data);
+  }
 }
