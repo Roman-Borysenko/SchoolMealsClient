@@ -22,6 +22,9 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
+import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
+import { IndexComponent } from './admin/index/index.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { HttpClientModule } from '@angular/common/http';
     ProductButtonsComponent,
     BlogSectionComponent,
     ProductPopupComponent,
-    BreadCrumbsComponent
+    BreadCrumbsComponent,
+    AppLayoutComponent,
+    AdminLayoutComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,31 @@
-import { Component, ComponentFactoryResolver, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { DishModel } from 'src/app/main-page/main-page.component';
+import { ProductPopupComponent } from 'src/app/product-popup/product-popup.component';
+import { ForwardingMessagesService } from 'src/app/services/forwarding-messages.service';
+import { RequestService } from 'src/app/services/request.service';
 import { environment } from 'src/environments/environment';
-import { DishModel } from './main-page/main-page.component';
-import { ProductPopupComponent } from './product-popup/product-popup.component';
-import { ForwardingMessagesService } from './services/forwarding-messages.service';
-import { RequestService } from './services/request.service';
+
+export interface LanguageModel {
+  id: number;
+  name: string;
+  slug: string;
+  nameAbbreviation: string;
+  default: boolean;
+}
+
+export interface CategoryModel {
+  slug: string;
+  name: string;
+  categories: Array<CategoryModel>;
+}
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-app-layout',
+  templateUrl: './app-layout.component.html',
+  styleUrls: ['./app-layout.component.css']
 })
-export class AppComponent {
+export class AppLayoutComponent implements OnInit {
+
   @ViewChild('productPopup', { read: ViewContainerRef }) productPopup: any;
   productPopupComponentRef: any = null;
 
@@ -21,18 +35,26 @@ export class AppComponent {
   showSlider = false;
   dish: DishModel = {} as DishModel;
 
+  categories: Array<CategoryModel> = Array<CategoryModel>();
+  languages: Array<LanguageModel> = new Array<LanguageModel>();
+  cartProducts: Array<any> = new Array(6);
+
   constructor(
     private forwardingMessages: ForwardingMessagesService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private requestService: RequestService,
-    private router : Router
-  ) { 
-    
-  }
+    private requestService: RequestService) { }
 
   ngOnInit(): void {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => { return false };
     this.forwardingMessages.trigger.subscribe((dishUrl) => this.onShowPopup(dishUrl));
+    // get the list of languages
+    this.requestService.get<Array<LanguageModel>>("api/language").subscribe(res => { 
+      this.languages = res;
+    });
+
+    // get the list of categories
+    this.requestService.get<Array<CategoryModel>>("api/category/getmaincategories?lang=" + this.env.language).subscribe(res => { 
+      this.categories = res;
+    });
   }
 
   private getDish(dishUrl: string[], callbeck: Function | undefined): void {
@@ -43,6 +65,17 @@ export class AppComponent {
         if(callbeck)
           callbeck();
       });
+  }
+
+  onLangClick(event: any) {
+    if (event.target.innerText) {
+      this.env.language = event.target.innerText.toLowerCase();
+      event.target.parentElement.parentElement.querySelector(".active").removeAttribute("class");
+      event.target.className = "active";
+
+      this.ngOnInit();
+      // this.router.navigateByUrl("/"+this.env.language.toLowerCase());
+    }
   }
 
   onShowPopup(dishUrl: string[]): void {
@@ -77,4 +110,5 @@ export class AppComponent {
       
     }
   }
+
 }

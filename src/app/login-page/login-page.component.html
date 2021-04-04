@@ -1,1 +1,26 @@
-<p>login-page works!</p>
+<div class="wrapper__login">
+    <div class="login__container">
+        <div class="header__logo form__logo">
+            <a href="#"><span>School</span>Food</a>
+        </div>
+
+        <div class="login__form">
+            <h1>Login</h1>
+            <div class="form__group">
+                <input type="email" placeholder="E-mail">
+                <div class="form__icon">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                </div>
+            </div>
+            <div class="form__group">
+                <input type="password" placeholder="Password">
+                <div class="form__icon">
+                    <fa-icon [icon]="faLock"></fa-icon>
+                </div>
+            </div>
+            <div class="form__group">
+                <button>Login</button>
+            </div>
+        </div>
+    </div>
+</div>
