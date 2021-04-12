@@ -5,22 +5,30 @@
         </div>
 
         <div class="login__form">
-            <h1>Login</h1>
-            <div class="form__group">
-                <input type="email" placeholder="E-mail">
-                <div class="form__icon">
-                    <fa-icon [icon]="faUser"></fa-icon>
+            <h1>Вхід</h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form__element">
+                    <div class="form__group">
+                        <input type="email" placeholder="E-mail" formControlName="email">
+                        <div class="form__icon">
+                            <fa-icon [icon]="faUser"></fa-icon>
+                        </div>
+                    </div>
+                    <span class="form__error" *ngFor="let error of errorsToDisplay.get('email')">{{error}}</span>
                 </div>
-            </div>
-            <div class="form__group">
-                <input type="password" placeholder="Password">
-                <div class="form__icon">
-                    <fa-icon [icon]="faLock"></fa-icon>
+                <div class="form__element">
+                    <div class="form__group">
+                        <input type="password" placeholder="Password" formControlName="password">
+                        <div class="form__icon">
+                            <fa-icon [icon]="faLock"></fa-icon>
+                        </div>
+                    </div>
+                    <span class="form__error" *ngFor="let error of errorsToDisplay.get('password')">{{error}}</span>
                 </div>
-            </div>
-            <div class="form__group">
-                <button>Login</button>
-            </div>
+                <div class="form__group">
+                    <button>Ввійти</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

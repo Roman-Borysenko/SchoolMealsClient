@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faEye, faShoppingBasket, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { DishModel } from '../main-page/main-page.component';
+import { CartService } from '../services/cart.service';
 import { ForwardingMessagesService } from '../services/forwarding-messages.service';
 
 @Component({
@@ -13,9 +15,12 @@ export class ProductButtonsComponent implements OnInit {
   faShoppingBasket = faShoppingBasket;
   faHeart = faHeart;
 
-  @Input() dishUrl: string[] = [];
+  @Input() dish: DishModel = {} as DishModel;
 
-  constructor(private forwardingMessages: ForwardingMessagesService) { }
+  constructor(
+    private forwardingMessages: ForwardingMessagesService,
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +30,13 @@ export class ProductButtonsComponent implements OnInit {
     $event.preventDefault();
 
     this.forwardingMessages.triggerOnShowPopup(dishUrl);
+  }
+
+  toCart($event: any): void {
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    this.cartService.saveOrder(this.dish);
   }
 
 }

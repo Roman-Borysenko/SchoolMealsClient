@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { DishModel } from 'src/app/main-page/main-page.component';
 import { ProductPopupComponent } from 'src/app/product-popup/product-popup.component';
+import { CartService } from 'src/app/services/cart.service';
 import { ForwardingMessagesService } from 'src/app/services/forwarding-messages.service';
 import { RequestService } from 'src/app/services/request.service';
 import { environment } from 'src/environments/environment';
@@ -37,15 +38,21 @@ export class AppLayoutComponent implements OnInit {
 
   categories: Array<CategoryModel> = Array<CategoryModel>();
   languages: Array<LanguageModel> = new Array<LanguageModel>();
-  cartProducts: Array<any> = new Array(6);
+  cartDish: Array<DishModel> = new Array<DishModel>();
 
   constructor(
     private forwardingMessages: ForwardingMessagesService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private requestService: RequestService) { }
+    private requestService: RequestService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.forwardingMessages.trigger.subscribe((dishUrl) => this.onShowPopup(dishUrl));
+    this.cartService.trigger.subscribe((order) => { this.cartDish = order });
+
+    this.cartDish = this.cartService.readOrder();
+
     // get the list of languages
     this.requestService.get<Array<LanguageModel>>("api/language").subscribe(res => { 
       this.languages = res;
@@ -103,6 +110,14 @@ export class AppLayoutComponent implements OnInit {
     console.log(flag);
   }
 
+  deleteOrderedDish(dishId: number): void {
+    this.cartService.deleteOrderedDish(dishId);
+  }
+
+  confirmOrder(): void {
+    this.cartService.sendOrder();
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     console.log(event.target.innerWidth);
@@ -110,5 +125,4 @@ export class AppLayoutComponent implements OnInit {
       
     }
   }
-
 }

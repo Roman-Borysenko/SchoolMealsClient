@@ -12,6 +12,8 @@ export interface DishModel {
   image: string;
   tags: Array<TagModel>;
   ingredients: Array<IngredientModel>;
+
+  quantity: number; // field for cart
 }
 
 export interface TagModel {

@@ -17,10 +17,10 @@
                 </p>
                 <div class="product-popup-quantity">
                     <span>Qty:</span>
-                    <button class="product-popup-btn">&minus;</button>
-                    <input type="number" name="quantity" min="0" value="0">
-                    <button class="product-popup-btn">+</button>
-                    <button class="btn-add-cart">Add to cart</button>
+                    <button class="product-popup-btn" (click)="onDecrease()">&minus;</button>
+                    <input type="number" name="quantity" min="1" [value]="isDishQuantityNan() ? dish.quantity : dish.quantity" max="{{env.maxDishesQuan}}" disabled>
+                    <button class="product-popup-btn" (click)="onIncrease()">+</button>
+                    <button class="btn-add-cart" (click)="saveOrder()">В кошик</button>
                 </div>
                 <div class="product-popup-footer">
                     <p *ngIf="dish.hasOwnProperty('ingredients') && dish.ingredients.length > 0">

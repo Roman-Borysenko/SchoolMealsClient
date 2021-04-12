@@ -1227,6 +1227,9 @@ footer {
     font-size: 23px;
     margin-bottom: 30px;
 }
+.form__element {
+    margin-bottom: 25px;
+}
 .form__group {
     position: relative;
 }
@@ -1236,9 +1239,9 @@ footer {
     outline: none;
     width: 100%;
     font-size: 15px;
-    margin-bottom: 25px;
     box-sizing: border-box;
     transition: all .5s;
+    margin-bottom: 5px;
 }
 .form__group input {
     color: #777777;
@@ -1271,6 +1274,10 @@ footer {
 .form__group button:hover {
     cursor: pointer;
     background-color: #b91f17;
+}
+.form__error {
+    font-size: 14px;
+    color: #b91f17;
 }
 /*----media----*/
 @media (max-width: 1100px) {

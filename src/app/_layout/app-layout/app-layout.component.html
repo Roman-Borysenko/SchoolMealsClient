@@ -18,27 +18,27 @@
         </nav>
         <div class="header__bar">
             <div class="header__bar__basket mask__el">
-                <a [routerLink]="[ '/cart' ]">
+                <a [routerLink]="[ '/' + env.language, 'cart' ]">
                     <img src="assets/images/icons/basket.svg" alt="Basket">
                 </a>
-                <span>10</span>
+                <span>{{cartDish.length}}</span>
                 <div class="header__bar__order hide__el">
                     <ul>
-                        <li *ngFor="let item of cartProducts">
+                        <li *ngFor="let dish of cartDish">
                             <div class="header__order_container">
-                                <a href="#" class="header__order__delete"></a>
+                                <a (click)="deleteOrderedDish(dish.id)" class="header__order__delete"></a>
                                 <div class="header__order__img">
-                                    <img src="assets/images/demo1-0902091382-1-55x55.jpg" alt="Order">
+                                    <img [src]="env.address + dish.image" alt="Order">
                                 </div>
                                 <div class="header__order__title">
-                                    <a href="#">Pizza Formaggi - thick, 25cm</a>
-                                    <span>1 × $13.99</span>
+                                    <a [routerLink]="[ '/' + env.language, dish.dishUrlSections[0], dish.dishUrlSections[1] != null ? dish.dishUrlSections[1] : 'dish', dish.dishUrlSections[2] ]">{{dish.name}}</a>
+                                    <span>Кількість: {{dish.quantity}}</span>
                                 </div>
                             </div>
                         </li>
                         <div class="header__order__buttons">
-                            <a href="#">View cart</a>
-                            <a href="#">Checkout</a>
+                            <a [routerLink]="[ '/' + env.language, 'cart' ]">Корзина</a>
+                            <a (click)="confirmOrder()">Замовити</a>
                         </div>
                     </ul>
                 </div>

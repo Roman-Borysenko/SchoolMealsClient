@@ -1,8 +1,8 @@
 <div class="page-product-img-panel">
-    <button (click)="onShowPopup($event, dishUrl)" class="btn-side btn-side-view">
+    <button (click)="onShowPopup($event, dish.dishUrlSections)" class="btn-side btn-side-view">
         <fa-icon [icon]="faEye"></fa-icon>
     </button>
-    <button onclick="return false" class="btn-center">
+    <button (click)="toCart($event)" class="btn-center">
         <fa-icon [icon]="faShoppingBasket"></fa-icon>
     </button>
     <button onclick="return false" class="btn-side">

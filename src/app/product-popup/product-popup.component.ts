@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { reduce } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DishModel } from '../main-page/main-page.component';
+import { CartService } from '../services/cart.service';
 
 export enum Properties {
   Ingredients,
@@ -23,7 +24,9 @@ export class ProductPopupComponent implements OnInit {
   dish: DishModel = {} as DishModel;
   images: string[] = [];
 
-  constructor() {
+  constructor(
+    private cartService: CartService
+  ) {
   }
 
   ngOnInit(): void {
@@ -38,5 +41,35 @@ export class ProductPopupComponent implements OnInit {
     }
 
     return res;
+  }
+
+  onIncrease(): void {
+    if (this.dish.quantity < this.env.maxDishesQuan) {
+      this.dish.quantity++;
+    }
+  }
+
+  onDecrease(): void {
+    if (this.dish.quantity > 1 ) {
+      this.dish.quantity--;
+    }
+  }
+
+  saveOrder(): void {
+    this.cartService.saveOrderdDish(this.dish);
+  }
+
+  isDishQuantityNan(): boolean {
+    if (!this.dish.quantity) {
+      let quantity = this.cartService.GetDishQuantity(this.dish.id);
+
+      if (quantity == 0) {
+        this.dish.quantity = 1;
+      } else {
+        this.dish.quantity = quantity;
+      }
+    }
+
+    return true;
   }
 }

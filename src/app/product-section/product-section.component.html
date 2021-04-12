@@ -5,7 +5,7 @@
             <div class="page-product-img">
                 <a [routerLink]="[ '/' + env.language, dish.dishUrlSections[0], dish.dishUrlSections[1] != null ? dish.dishUrlSections[1] : 'dish', dish.dishUrlSections[2] ]">
                     <img [src]="env.address + dish.image" [alt]="dish.slug">
-                    <app-product-buttons [dishUrl]="dish.dishUrlSections"></app-product-buttons>
+                    <app-product-buttons [dish]="dish"></app-product-buttons>
                 </a>
             </div>
             <div class="page-product-description">

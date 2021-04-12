@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,10 +21,18 @@ import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductPopupComponent } from './product-popup/product-popup.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { IndexComponent } from './admin/index/index.component';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+
+const INTERCEPTOR_PROVIDR: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true
+}
 
 @NgModule({
   declarations: [
@@ -54,9 +62,10 @@ import { IndexComponent } from './admin/index/index.component';
     BrowserAnimationsModule,
     MatSliderModule,
     NgxImageZoomModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDR],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

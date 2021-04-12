@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   address: "https://localhost:5001/",
-  language: "ua"
+  language: "ua",
+  maxDishesQuan: 10
 };
 
 /*

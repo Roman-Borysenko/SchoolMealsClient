@@ -4,46 +4,46 @@
     <div class="cart__product__item">
         <div class="cart__product">
             <div class="cart__product__image">
-                <h3>Images</h3>
+                <h3>Картинка</h3>
             </div>
             <div class="cart__product__name">
-                <h3>Name</h3>
+                <h3>Назва</h3>
             </div>
         </div>
         <div class="cart__product__options">
             <div class="cart__product__quantity">
-                <h3>Quantity</h3>
+                <h3>Кількість</h3>
             </div>
             <div class="cart__product__delete">
-                <h3>Delete</h3>
+                <h3>Видалити</h3>
             </div>
         </div>
     </div>
 
-    <div *ngFor="let item of products" class="cart__product__item">
+    <div *ngFor="let dish of dishes" class="cart__product__item">
         <div class="cart__product">
             <div class="cart__product__image">
-                <img src="assets/images/products/demo1-0902240709-1-238x238.jpg" alt="Image">
+                <img [src]="env.address + dish.image" alt="Image">
             </div>
             <div class="cart__product__name">
-                <a [routerLink]="[ '/category', 'subcategory', 'dish' ]">Lorem ipsum dolor sit amet.</a>
+                <a [routerLink]="[ '/category', 'subcategory', 'dish' ]">{{dish.name}}</a>
             </div>
         </div>
         <div class="cart__product__options">
             <div class="cart__product__quantity">
                 <div class="product-popup-quantity">
-                    <button class="product-popup-btn">&minus;</button>
-                    <input type="number" name="quantity" min="0" value="0">
-                    <button class="product-popup-btn">+</button>
+                    <button class="product-popup-btn" (click)="onDecrease(dish.id)">&minus;</button>
+                    <input type="number" name="quantity" min="1" max="{{env.maxDishesQuan}}" value="{{dish.quantity}}" disabled>
+                    <button class="product-popup-btn" (click)="onIncrease(dish.id)">+</button>
                 </div>
             </div>
             <div class="cart__product__delete">
-                <button class="btn__delete__item"> <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+                <button class="btn__delete__item" (click)="deleteOrderedDish(dish.id)"> <fa-icon [icon]="faTrashAlt"></fa-icon></button>
             </div>
         </div>
     </div>
 
     <div class="cart__button">
-        <button>Confirm</button>
+        <button (click)="confirmOrder()">Замовити</button>
     </div>
 </section>
