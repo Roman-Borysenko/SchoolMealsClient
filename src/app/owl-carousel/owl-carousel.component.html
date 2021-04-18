@@ -1,31 +1,11 @@
-<owl-carousel [options]="SlideOptions" [carouselClasses]="['owl-theme', 'sliding']">
-    <div class="owl-carousel-slide">
-        <img src="assets/images/090e348d8ab2c0bb2a5e29167d788856.jpg" alt="Slide_1">
+<owl-carousel #OwlCarousel [options]="SlideOptions" [carouselClasses]="['owl-theme', 'sliding']">
+    <div class="owl-carousel-slide" *ngFor="let slide of slides">
+        <img [src]="env.address + slide.image">
         <div class="owl-carousel-slide-container">
             <div class="owl-carousel-slide-content">
-                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum atque nulla inventore autem, nesciunt delectus ea iusto eveniet ducimus?</p>
-                <a href="#">Check</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="owl-carousel-slide">
-        <img src="assets/images/81950f2307aacab58a1ded3c554224d6.jpg" alt="Slide_2">
-        <div class="owl-carousel-slide-container">
-            <div class="owl-carousel-slide-content">
-                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum atque nulla inventore autem, nesciunt delectus ea iusto eveniet ducimus?</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="owl-carousel-slide">
-        <img src="assets/images/e7fc97b846cafbed9b45bb37a95a1025.jpg" alt="Slide_3">
-        <div class="owl-carousel-slide-container">
-            <div class="owl-carousel-slide-content">
-                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum atque nulla inventore autem, nesciunt delectus ea iusto eveniet ducimus?</p>
+                <h1>{{slide.title}}</h1>
+                <p>{{slide.description}}</p>
+                <a *ngIf="slide.buttonName && slide.buttonLink" [href]="slide.buttonLink" target="_blank">{{slide.buttonName}}</a>
             </div>
         </div>
     </div>

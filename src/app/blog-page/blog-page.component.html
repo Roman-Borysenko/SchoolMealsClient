@@ -1,24 +1,28 @@
-<app-bread-crumbs></app-bread-crumbs>
+<app-bread-crumbs [breadcrumbs]="breadcrumbs"></app-bread-crumbs>
 
 <section class="blog">
-    <article *ngFor="let item of articles" class="blog__article">
+    <article *ngFor="let article of articles" class="blog__article">
         <div class="blog__article__images">
             <a [routerLink]="[ '/blog', 'article' ]">
                 <img src="assets/images/blog/bsm_product_image.jpg" alt="article">
             </a>
         </div>
         <div class="blog__article__context">
-            <h2><a [routerLink]="[ '/blog', 'article' ]">Lorem ipsum dolor sit amet consectetur adipisicing.</a></h2>
+            <h2><a [routerLink]="[ '/' + env.language, 'blog', article.slug ]">{{article.title}}</a></h2>
             <div class="blog__article__info">
                 <div class="info">
-                    <i class="far fa-calendar"></i> January 18, 2020
+                    <fa-icon [icon]="faCalendar"></fa-icon> {{article.updateAt | date: 'MMM d, y' }}
                 </div>
                 <div class="info">
-                    <i class="fas fa-edit"></i> By Admin
+                    <fa-icon [icon]="faEdit"></fa-icon> {{article.authorName}}
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam enim doloremque labore reiciendis quam dolore nemo modi saepe, amet quae blanditiis tempore natus in error perspiciatis eum officia impedit exercitationem?</p>
-            <a class="read__more" href="#">Read more</a>
+            <p [innerHTML]="(article.text | slice:0:540) + '...'"></p>
+            <a class="read__more" [routerLink]="[ '/' + env.language, 'blog', article.slug ]">Читати далі</a>
         </div>
     </article>
+
+    <div class="product__loader">
+        <button (click)="loadArticle()"><div class="lds-facebook" [ngClass]="{'active': lock}"><div></div><div></div><div></div></div> Показати ще</button>
+    </div>
 </section>

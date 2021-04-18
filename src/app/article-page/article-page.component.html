@@ -1,26 +1,15 @@
-<app-bread-crumbs></app-bread-crumbs>
+<app-bread-crumbs [breadcrumbs]="breadcrumbs"></app-bread-crumbs>
 
 <article class="article">
-    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum hic, unde aspernatur libero nisi provident.</h1>
+    <h1>{{article.title}}</h1>
     <div class="blog__article__info">
         <div class="info">
-            <i class="far fa-calendar"></i> January 18, 2020
+            <fa-icon [icon]="faCalendar"></fa-icon> {{article.updateAt | date: 'MMM d, y' }}
         </div>
         <div class="info">
-            <i class="fas fa-edit"></i> By Admin
+            <fa-icon [icon]="faEdit"></fa-icon> {{article.authorName}}
         </div>
     </div>
-    <img src="assets/images/blog/Summer-Getaway-Guide.jpg" alt="Article">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <h2>uisque commodo</h2>
-    <p>Integer elementum, leo congue lacinia ullamcorper, dolor libero euismod arcu, vel mollis mi libero eu quam. Proin vestibulum felis elit, vel vestibulum dolor condimentum ac. Maecenas nec fringilla felis. Nulla ultrices pulvinar magna in iaculis. Ut tellus eros, sagittis sed sapien eget, sodales <b>faucibus sapien</b>.</p>
-    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-    <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-    <ol>
-        <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
-        <li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. <a href="#">Aliquam erat volutpat.</a> Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li>
-        <li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li>
-        <li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li>
-    </ol>
-    <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+    <img [src]="env.address + article.image" [alt]="article.slug">
+    <p [innerHTML]="article.text"></p>
 </article>

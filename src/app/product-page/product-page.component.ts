@@ -15,6 +15,7 @@ export class ProductPageComponent implements OnInit {
   env = environment;
 
   private urlParams: Params = {};
+  breadcrumbs: Array<{[key: string]:  Array<string>}> = new Array<{[key: string]:  Array<string>}>();
   dish: DishModel = {} as DishModel;
   images: string[] = [];
 
@@ -36,12 +37,21 @@ export class ProductPageComponent implements OnInit {
       .subscribe(res => {
         this.dish = res;
         this.images = res.image.split("|");
+
+        this.genBreadcrumbs();
       });
     
     this.requestService.get<Array<DishModel>>("api/dish/getrecommendeddishesfromcategory?categorySlug=" + (this.urlParams.subcategory == "dish" ? this.urlParams.category : this.urlParams.subcategory) + "&take=4&lang=" + this.env.language)
       .subscribe(res => {
         this.dishesFromCategory = res;
       });
+  }
+
+  private genBreadcrumbs() {
+    this.requestService.get<Array<{[key: string]: Array<string>}>>("api/category/getbreadcrumbs?categorySlug=" + this.urlParams.category + (this.urlParams.subcategory ? "&subcategorySlug=" + this.urlParams.subcategory : "")).subscribe(res => {
+      this.breadcrumbs = res;
+      this.breadcrumbs.push({key: [this.dish.name], value: this.breadcrumbs[this.breadcrumbs.length - 1].value.concat([this.dish.slug])});
+    });
   }
 
   onIncrease(): void {

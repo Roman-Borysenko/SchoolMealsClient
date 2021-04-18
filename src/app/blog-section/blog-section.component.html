@@ -1,28 +1,28 @@
 <section class="page-section-products">
-    <h2>From The Blog</h2>
+    <h2>{{title}}</h2>
     <div *ngFor="let article of articles; let i = index" class="page-blog-container">
         <ng-container [ngTemplateOutlet]="i % 2 == 0 ? thenTemplate : elseTemplate" [ngTemplateOutletContext]="{items:article}"></ng-container>
         <ng-template #thenTemplate ngFor let-items="items">
             <div class="page-blog-article" *ngFor="let item of items">
                 <div class="page-blog-image">
-                    <img src="assets/images/blog/bsm_product_image.jpg" alt="article">
+                    <img [src]="env.address + item.image" [alt]="item.slug">
                 </div>
                 <div class="page-blog-text">
-                    <h3>THE BEST PASTA IN NEW YORK {{ items.length }}</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <a href="#">Read more</a>
+                    <h3>{{item.title | uppercase}}</h3>
+                    <p [innerHTML]="(item.text | slice:0:140) + '...'"></p>
+                    <a [routerLink]="[ '/' + env.language, 'blog', item.slug ]">Читати далі</a>
                 </div>
             </div>
         </ng-template>
         <ng-template #elseTemplate let-items="items">
             <div class="page-blog-article" *ngFor="let item of items">
                 <div class="page-blog-text">
-                    <h3>THE BEST PASTA IN NEW YORK {{ items.length }}</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <a [routerLink]="[ '/blog', 'article' ]">Read more</a>
+                    <h3>{{item.title | uppercase }}</h3>
+                    <p [innerHTML]="(item.text | slice:0:140) + '...'"></p>
+                    <a [routerLink]="[ '/' + env.language, 'blog', item.slug ]">Читати далі</a>
                 </div>
                 <div class="page-blog-image">
-                    <img src="assets/images/blog/bsm_product_image.jpg" alt="article">
+                    <img [src]="env.address + item.image" [alt]="item.slug">
                 </div>
             </div>
         </ng-template>

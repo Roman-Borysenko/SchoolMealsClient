@@ -32,6 +32,7 @@ export class CategoryPageComponent implements OnInit {
 
   isGrid: boolean = true;
 
+  breadcrumbs: Array<{[key: string]:  Array<string>}> = new Array<{[key: string]:  Array<string>}>();
   dishes: Array<DishModel> = new Array<DishModel>();
   ingredients: Array<IngredientModel> = new Array<IngredientModel>();
 
@@ -45,14 +46,19 @@ export class CategoryPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => { 
       this.urlParams = params;
-      this.getDishesByFilter();
     });
+
+    this.getDishesByFilter();
 
     this.requestService.get<Array<IngredientModel>>(
       "api/ingredient/getall?lang=" + this.env.language)
       .subscribe(res => { 
         this.ingredients = res;
       });
+    
+    this.requestService.get<Array<{[key: string]: Array<string>}>>("api/category/getbreadcrumbs?categorySlug=" + this.urlParams.category + (this.urlParams.subcategory ? "&subcategorySlug=" + this.urlParams.subcategory : "")).subscribe(res => {
+      this.breadcrumbs = res;
+    });
   }
 
   private getDishesByCategory(): void {

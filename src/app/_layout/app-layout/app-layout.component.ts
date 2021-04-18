@@ -18,6 +18,7 @@ export interface CategoryModel {
   slug: string;
   name: string;
   categories: Array<CategoryModel>;
+  parentCategory: CategoryModel;
 }
 
 @Component({

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IngredientModel } from '../category-page/category-page.component';
 import { RequestService } from '../services/request.service';
+import { CategoryModel } from '../_layout/app-layout/app-layout.component';
 
 export interface DishModel {
   id: number,
@@ -12,6 +13,7 @@ export interface DishModel {
   image: string;
   tags: Array<TagModel>;
   ingredients: Array<IngredientModel>;
+  category: CategoryModel;
 
   quantity: number; // field for cart
 }
@@ -19,6 +21,15 @@ export interface DishModel {
 export interface TagModel {
   name: string;
   slug: string;
+}
+
+export interface ArticleModel {
+  title: string,
+  slug: string,
+  text: string,
+  image: string,
+  authorName: string,
+  updateAt: Date
 }
 
 @Component({
@@ -37,6 +48,9 @@ export class MainPageComponent implements OnInit {
 
   recommendedDishesTitle: string = "Рекомендовані страви";
   recommendedDishes: Array<DishModel> = new Array<DishModel>();
+
+  blogArticlesTitle: string =  "Статті з Блогу";
+  blogArticles: Array<Array<ArticleModel>> = new Array<Array<ArticleModel>>();
   
   constructor(private requestService: RequestService) { }
 
@@ -50,6 +64,22 @@ export class MainPageComponent implements OnInit {
     this.requestService.get<Array<DishModel>>("api/dish/getrecommendeddishes?take=4&lang=" + this.env.language).subscribe(res => { 
       this.recommendedDishes = res;
     });
+
+    // get list of article for blog
+    this.requestService.get<Array<ArticleModel>>("api/blog/getarticles?skip=0&take=4&lang=" + this.env.language).subscribe(res => { 
+      this.blogArticles = this.chunk(res, 2);
+    });
+  }
+
+  chunk(array: Array<any>, size: number): Array<Array<any>> {
+    var i = 0, j = array.length;
+    var temparray = new Array<Array<any>>();
+
+    for (; i<j; i+=size) {
+      temparray.push(array.slice(i,i+size));
+    }
+
+    return temparray;
   }
 
 }
