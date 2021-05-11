@@ -1,0 +1,80 @@
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{scheme.name}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <a type="button" class="btn btn-success mb-2" [routerLink]="[ '/admin', urlParams.schema, 'add' ]">Додати</a>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                  <th *ngFor="let property of scheme.properties">{{ property.displayData.Name }}</th>
+                                  <th>Редагувати</th>
+                                  <th>Видалити</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of result.data">
+                                  <td *ngFor="let property of scheme.properties">{{item[property.propName]}}</td>
+                                  <td><a class="btn btn-primary btn-block btn-sm" [routerLink]="[ '/admin', urlParams.schema, 'edit', item.slug ]"><fa-icon [icon]="faEdit"></fa-icon></a></td>
+                                  <td><button class="btn btn-danger btn-block btn-sm" (click)="onDelete(item.id)"><fa-icon [icon]="faTrashAlt"></fa-icon></button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="align-items-center">Showing {{(paginator.page * paginator.take) - paginator.take}} to {{paginator.page * paginator.take > paginator.size ? paginator.size : paginator.page * paginator.take}} of {{paginator.size}} entries</div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="float-right">
+                            <ul class="pagination">
+                                <li class="page-item" [ngClass]="{'disabled': paginator.page <= 1}">
+                                  <a class="page-link" (click)="onClickPrevBtn()">Назад</a>
+                                </li>
+                                <li class="page-item" *ngFor="let item of paginator.pages; let i=index" [ngClass]="{'active': paginator.page == i + 1}"><a class="page-link" (click)="onClickNumBtn(i + 1)">{{i + 1}}</a></li>
+                                <li class="page-item" [ngClass]="{'disabled': paginator.page >= paginator.pages.length}">
+                                  <a class="page-link" (click)="onClickNextBtn()">Далі</a>
+                                </li>
+                              </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

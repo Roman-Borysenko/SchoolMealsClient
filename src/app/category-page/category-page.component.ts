@@ -46,9 +46,8 @@ export class CategoryPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => { 
       this.urlParams = params;
+      this.getDishesByCategory();
     });
-
-    this.getDishesByFilter();
 
     this.requestService.get<Array<IngredientModel>>(
       "api/ingredient/getall?lang=" + this.env.language)
@@ -66,9 +65,9 @@ export class CategoryPageComponent implements OnInit {
       this.lock = true;
       this.requestService.get<Array<DishModel>>(
         "api/dish/getbycategory/?lang=" + this.env.language + "&categorySlug=" + this.urlParams.category + (this.urlParams.subcategory ? "&subcategorySlug=" + this.urlParams.subcategory : "")
-        + "&skip=" + this.dishes.length + "&take=" + this.take)
+        + "&skip=" + 0 + "&take=" + this.take)
         .subscribe(res => { 
-          this.dishes = this.dishes.concat(res);
+          this.dishes = res;
           this.lock = false;
         });
     }

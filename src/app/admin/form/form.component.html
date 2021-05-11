@@ -1,0 +1,127 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{scheme.name}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Validation</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="modal fade show" id="modal-default" [ngStyle]="{'padding-right': '16px', 'display': showErrorPopup ? 'block' : 'none', 'background-color': 'rgba(0,0,0,0.5)'}" aria-modal="true" role="dialog"> <!--display: none; padding-right: 16px;-->
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Невірно заповнені дані</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showErrorPopup = false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="errors-list">
+              <li *ngFor="let error of errors">{{error}}</li>
+            </ul>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form id="quickForm">
+                <div class="card-body">
+                  <div class="form-group" *ngFor="let property of scheme.properties" [ngSwitch]="property.type">
+                    <label for="exampleInputEmail1">{{property.displayData.Name}}</label>
+
+                    <input *ngSwitchCase="formType.Text" type="text" class="form-control" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+
+                    <input *ngSwitchCase="formType.Number" type="number" class="form-control" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+
+                    <select *ngSwitchCase="formType.List" class="form-control select2" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]="">Не вибрано</option>
+                        <option *ngFor="let item of relatedData[property.propName]" [ngValue]="item.id" [selected]="item.id == result[property.propName]">{{item.name}}</option>
+                    </select>
+
+                    <angular-editor *ngSwitchCase="formType.MultilineText" [placeholder]="'Enter text here...'" [(ngModel)]="result[property.propName]" [ngModelOptions]="{standalone: true}"></angular-editor>
+                  
+                    <div *ngSwitchCase="formType.Image">
+                      <div class="input-group mb-2">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="exampleInputFile" (change)="fileChangeEvent($event)">
+                          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                      </div>
+
+                      <div *ngFor="let size of property.imagesSize | keyvalue " class="admin-image mb-2">
+                        <h6>{{size.key + "(" + size.value.join("*") + ")"}}</h6>
+
+                        <ngx-photo-editor
+                          [imageChanedEvent]="imageChangedEvent"
+                          (imageCropped)="imageCropped($event, size.key)"
+                          [aspectRatio]="size.value[0]/size.value[1]"
+                          [viewMode]="3"
+                          [resizeToWidth]="size.value[0]"></ngx-photo-editor>
+  
+                        <img [src]="images[size.key]" [alt]="">
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="formType.CheckBox" class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+                      <label class="custom-control-label" for="customSwitch1"></label>
+                    </div>
+
+                    <ng-multiselect-dropdown *ngSwitchCase="formType.Multiselect"
+                      [placeholder]="'Не вибрано'"
+                      [settings]="dropdownSettings"
+                      [data]="relatedData[property.propName]"
+                      [(ngModel)]="result[property.propName]"
+                      [ngModelOptions]="{standalone: true}"
+                      (onSelect)="onItemSelect($event)"
+                      (onSelectAll)="onSelectAll($event)"
+                    >
+                    </ng-multiselect-dropdown>
+                    
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer" (click)="onSent($event)">
+                  <button type="submit" class="btn btn-primary">Відправити</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

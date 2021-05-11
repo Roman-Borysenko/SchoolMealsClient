@@ -26,7 +26,12 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { IndexComponent } from './admin/index/index.component';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatatableComponent } from './admin/datatable/datatable.component';
+import { FormComponent } from './admin/form/form.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgxPhotoEditorModule } from 'ngx-photo-editor';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const INTERCEPTOR_PROVIDR: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -52,7 +57,9 @@ const INTERCEPTOR_PROVIDR: Provider = {
     BreadCrumbsComponent,
     AppLayoutComponent,
     AdminLayoutComponent,
-    IndexComponent
+    IndexComponent,
+    DatatableComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +70,11 @@ const INTERCEPTOR_PROVIDR: Provider = {
     MatSliderModule,
     NgxImageZoomModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule,
+    NgxPhotoEditorModule,
+    FormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [INTERCEPTOR_PROVIDR],
   bootstrap: [AppComponent]

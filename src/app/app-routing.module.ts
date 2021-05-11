@@ -11,6 +11,8 @@ import { ProductPageComponent } from "./product-page/product-page.component";
 import { AdminLayoutComponent } from "./_layout/admin-layout/admin-layout.component";
 import { AppLayoutComponent } from "./_layout/app-layout/app-layout.component";
 import { IndexComponent } from "./admin/index/index.component";
+import { DatatableComponent } from "./admin/datatable/datatable.component";
+import { FormComponent } from "./admin/form/form.component";
 
 
 const routes: Routes = [
@@ -20,6 +22,9 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       { path: "", component: IndexComponent },
+      { path: ":schema", component: DatatableComponent },
+      { path: ":schema/add", component: FormComponent },
+      { path: ":schema/edit/:slug", component: FormComponent}
     ]
   },
   {

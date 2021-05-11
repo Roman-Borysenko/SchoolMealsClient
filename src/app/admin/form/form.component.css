@@ -1,0 +1,9 @@
+.admin-image {
+    width: 100%;
+}
+.admin-image img {
+    max-width: 100%;
+}
+.errors-list {
+    color: red;
+}
