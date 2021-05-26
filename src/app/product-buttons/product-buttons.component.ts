@@ -39,4 +39,10 @@ export class ProductButtonsComponent implements OnInit {
     this.cartService.saveOrder(this.dish);
   }
 
+  toWishList($event: any): void {
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    this.cartService.saveOrder(this.dish, 1, "_wish");
+  }
 }

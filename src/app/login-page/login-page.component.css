@@ -1,0 +1,12 @@
+.header__logo {
+    font-size: 40px;
+}
+.header__logo a {
+    color: #ffce09;
+    font-weight: bold;
+}
+.header__logo span {
+    font-family: 'SansitaSwashed';
+    color: #b91f17;
+    font-weight: normal;
+}

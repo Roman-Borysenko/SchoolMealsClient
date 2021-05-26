@@ -13,6 +13,19 @@ export class CartService {
 
   constructor(private requestService: RequestService) { }
 
+  /*--wish--*/
+
+  private _triggerWish = new Subject<string>();
+
+  get triggerWish() {
+    return this._triggerWish.asObservable();
+  }
+
+  public triggerWishOnStorage(text: string) { 
+    this._triggerWish.next(text);
+  }
+
+  /*--cart--*/
   private _trigger = new Subject<Array<DishModel>>();
 
   get trigger() {
@@ -23,9 +36,9 @@ export class CartService {
     this._trigger.next(order);
   }
 
-  public readOrder(): Array<DishModel> {
+  public readOrder(storeName: string = "_order"): Array<DishModel> {
     let order = new Array<DishModel>();
-    let orderFromStorage = localStorage.getItem("_order");
+    let orderFromStorage = localStorage.getItem(storeName);
 
     if (orderFromStorage !== null && orderFromStorage !== undefined && orderFromStorage !== "") {
       order = JSON.parse(orderFromStorage);
@@ -34,9 +47,14 @@ export class CartService {
     return order;
   }
 
-  public writeOrder(order: Array<DishModel>): void {
-    localStorage.setItem("_order", JSON.stringify(order));
-    this.triggerOnStorage(order);
+  public writeOrder(order: Array<DishModel>, storeName: string = "_order"): void {
+    localStorage.setItem(storeName, JSON.stringify(order));
+    
+    if (storeName == "_order") {
+      this.triggerOnStorage(order);
+    } else {
+      this.triggerWishOnStorage("Страву було додано до списку бажань!");
+    }
   }
 
   public GetDishQuantity(dishId: number): number {
@@ -49,19 +67,19 @@ export class CartService {
     return 0;
   }
 
-  public saveOrderById(dishId: number, quantity: number = 1): void {
-    let order = this.readOrder();
+  public saveOrderById(dishId: number, quantity: number = 1, storeName: string = "_order"): void {
+    let order = this.readOrder(storeName);
     let dish = order.find(d => d.id == dishId);
 
     if (dish) {
       if (dish.quantity + quantity > 0 && dish.quantity + quantity <= this.env.maxDishesQuan) {
-        this.saveOrder(dish, quantity);
+        this.saveOrder(dish, quantity, storeName);
       }
     }
   }
 
-  public saveOrder(dish: DishModel, quantity: number = 1): void {
-    let order = this.readOrder();
+  public saveOrder(dish: DishModel, quantity: number = 1, storeName: string = "_order"): void {
+    let order = this.readOrder(storeName);
 
     let thisDish = order.find(d => d.id == dish.id);
 
@@ -74,7 +92,7 @@ export class CartService {
       order.push(dish);
     }
 
-    this.writeOrder(order);
+    this.writeOrder(order, storeName);
   }
 
   public saveOrderdDish(dish: DishModel) {
@@ -94,8 +112,8 @@ export class CartService {
     this.writeOrder(order);
   }
 
-  public deleteOrderedDish(dishId: number) {
-    let order = this.readOrder();
+  public deleteOrderedDish(dishId: number, storeName: string = "_order") {
+    let order = this.readOrder(storeName);
 
     let thisDish = order.findIndex(d => d.id == dishId);
 
@@ -103,7 +121,7 @@ export class CartService {
       order.splice(thisDish, 1);
     }
 
-    this.writeOrder(order);
+    this.writeOrder(order, storeName);
   }
 
   public sendOrder(): void {

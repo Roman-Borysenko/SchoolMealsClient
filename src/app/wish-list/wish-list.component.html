@@ -1,8 +1,8 @@
 <app-bread-crumbs *ngIf="dishes.length > 0" [breadcrumbs]="breadcrumbs"></app-bread-crumbs>
 
 <section class="cart__page" *ngIf="dishes.length > 0">
-    <div class="cart__product__item">
-        <div class="cart__product">
+    <div class="wish__product__item">
+        <div class="wish__product">
             <div class="cart__product__image">
                 <h3>Картинка</h3>
             </div>
@@ -10,9 +10,12 @@
                 <h3>Назва</h3>
             </div>
         </div>
-        <div class="cart__product__options">
+        <div class="wish__product__options">
             <div class="cart__product__quantity">
                 <h3>Кількість</h3>
+            </div>
+            <div class="cart__product__delete">
+                <h3>В корзину</h3>
             </div>
             <div class="cart__product__delete">
                 <h3>Видалити</h3>
@@ -20,7 +23,7 @@
         </div>
     </div>
 
-    <div *ngFor="let dish of dishes" class="cart__product__item">
+    <div *ngFor="let dish of dishes" class="wish__product__item">
         <div class="cart__product">
             <div class="cart__product__image">
                 <img [src]="env.address + dish.image" alt="Image">
@@ -29,7 +32,7 @@
                 <a [routerLink]="[ '/' + env.language, dish.dishUrlSections[0], dish.dishUrlSections[1] != null ? dish.dishUrlSections[1] : 'dish', dish.dishUrlSections[2] ]">{{dish.name}}</a>
             </div>
         </div>
-        <div class="cart__product__options">
+        <div class="wish__product__options">
             <div class="cart__product__quantity">
                 <div class="product-popup-quantity">
                     <button class="product-popup-btn" (click)="onDecrease(dish.id)">&minus;</button>
@@ -38,16 +41,15 @@
                 </div>
             </div>
             <div class="cart__product__delete">
-                <button class="btn__delete__item" (click)="deleteOrderedDish(dish.id)"> <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+                <button class="btn__cart__item" (click)="toCart(dish)"> <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+            </div>
+            <div class="cart__product__delete">
+                <button class="btn__delete__item" (click)="deleteWishDish(dish.id)"> <fa-icon [icon]="faTrashAlt"></fa-icon></button>
             </div>
         </div>
-    </div>
-
-    <div class="cart__button">
-        <button (click)="confirmOrder()">Замовити</button>
     </div>
 </section>
 
 <section class="cart__page" style="margin-top: 100px; margin-bottom: 300px;" *ngIf="dishes.length == 0">
-    <h2>Ви не обрали страви для замовлення!</h2>
+    <h2>Ви не додали жодної страви у свій список побажань!</h2>
 </section>

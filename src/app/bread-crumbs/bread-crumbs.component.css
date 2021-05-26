@@ -1,0 +1,38 @@
+/*--bread crumbs--*/
+.bread__crumbs {
+    text-align: center;
+    margin: 60px 0px 60px 0px;
+}
+.bread__crumbs > h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.bread__crumbs__container {
+    display: flex;
+    justify-content: center;
+}
+.bread__crumbs__container > a {
+    display: block;
+    padding-left: 15px;
+    font-size: 15px;
+    transition: all .5s;
+    color: #000000 !important;
+}
+.bread__crumbs__container > a:hover {
+    color: #ee2e24 !important;
+}
+.bread__crumbs__container > a:hover::after {
+    color: #000000 !important;
+}
+.bread__crumbs__container > a:first-child {
+    padding-left: 0px;
+}
+.bread__crumbs__container > a::after {
+    content: "/";
+    padding-left: 15px;
+}
+.bread__crumbs__container > a:last-child::after {
+    content: "";
+    padding-left: 0px;
+}

@@ -16,6 +16,8 @@ export class CartPageComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   dishes: Array<DishModel> = new Array<DishModel>();
 
+  breadcrumbs: Array<{[key: string]:  Array<string>}> = new Array<{[key: string]:  Array<string>}>();
+
   constructor(
     private cartService: CartService
   ) { }
@@ -24,6 +26,8 @@ export class CartPageComponent implements OnInit {
     this.cartService.trigger.subscribe((order) => { this.dishes = order });
 
     this.dishes = this.cartService.readOrder();
+
+    this.breadcrumbs.push({ key: ["Ваше замовлення"], value: ["cart"] });
   }
 
   onIncrease(dishId: number): void {

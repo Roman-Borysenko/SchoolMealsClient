@@ -49,6 +49,9 @@ export class MainPageComponent implements OnInit {
   recommendedDishesTitle: string = "Рекомендовані страви";
   recommendedDishes: Array<DishModel> = new Array<DishModel>();
 
+  recommendedDishesForUserTitle: string = "Рекомендовані страви відповідно до вашого здоров'я";
+  recommendedDishesForUser: Array<DishModel> = new Array<DishModel>();
+
   blogArticlesTitle: string =  "Статті з Блогу";
   blogArticles: Array<Array<ArticleModel>> = new Array<Array<ArticleModel>>();
   
@@ -63,6 +66,11 @@ export class MainPageComponent implements OnInit {
     // get the list of recommended dishes
     this.requestService.get<Array<DishModel>>("api/dish/getrecommendeddishes?take=4&lang=" + this.env.language).subscribe(res => { 
       this.recommendedDishes = res;
+    });
+
+    // get the list of recommended dishes for user
+    this.requestService.get<Array<DishModel>>("api/dish/getrecommendeddishesfotuser?take=4&lang=" + this.env.language).subscribe(res => { 
+      this.recommendedDishesForUser = res;
     });
 
     // get list of article for blog

@@ -20,10 +20,14 @@ export class AdminService {
   convertProperyNameToLower(data: any): any {
     for (let i = 0; i < data.length; i++) {
       let propery = data.properties[i].propName;
-      data.properties[i].propName = propery[0].toLowerCase() + propery.substr(1);
+      data.properties[i].propName = this.converValueToLower(propery);
     }
 
     return data;
+  }
+
+  converValueToLower(value: string): string {
+    return value[0].toLowerCase() + value.substr(1);
   }
 
   convertProperyNameToUpper(data: any): any {

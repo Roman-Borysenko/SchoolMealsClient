@@ -5,6 +5,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { ForwardingMessagesService } from 'src/app/services/forwarding-messages.service';
 import { RequestService } from 'src/app/services/request.service';
 import { environment } from 'src/environments/environment';
+import { faSignOutAlt, faHeart, faCog, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 export interface LanguageModel {
   id: number;
@@ -28,10 +30,17 @@ export interface CategoryModel {
 })
 export class AppLayoutComponent implements OnInit {
 
+  faSignOutAlt = faSignOutAlt;
+  faHeart = faHeart;
+  faCog = faCog;
+  faCheck = faCheck;
+
   @ViewChild('productPopup', { read: ViewContainerRef }) productPopup: any;
   productPopupComponentRef: any = null;
 
   env = environment;
+  isAdmin: boolean = false;
+  messageText: string = "";
 
   title = 'SchoolMeals';
   showSlider = false;
@@ -45,12 +54,14 @@ export class AppLayoutComponent implements OnInit {
     private forwardingMessages: ForwardingMessagesService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private requestService: RequestService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.forwardingMessages.trigger.subscribe((dishUrl) => this.onShowPopup(dishUrl));
-    this.cartService.trigger.subscribe((order) => { this.cartDish = order });
+    this.cartService.trigger.subscribe((order) => { this.cartDish = order; this.showMessage("Страву было додано до замовлення!") });
+    this.cartService.triggerWish.subscribe((text) => { this.showMessage(text) });
 
     this.cartDish = this.cartService.readOrder();
 
@@ -63,6 +74,19 @@ export class AppLayoutComponent implements OnInit {
     this.requestService.get<Array<CategoryModel>>("api/category/getmaincategories?lang=" + this.env.language).subscribe(res => { 
       this.categories = res;
     });
+
+    // check is user admin
+    let user = localStorage.getItem("_auth");
+    if (user !== null && user !== undefined && user !== "")
+      this.isAdmin = JSON.parse(user).isAdmin;
+  }
+
+  showMessage(text: string): void {
+    this.messageText = text;
+
+    setTimeout(() => {
+      this.messageText = "";
+    }, 3000);
   }
 
   private getDish(dishUrl: string[], callbeck: Function | undefined): void {
@@ -125,5 +149,10 @@ export class AppLayoutComponent implements OnInit {
     if (event.target.innerWidth > 1100) {
       
     }
+  }
+
+  onLogout(): void {
+    localStorage.removeItem("_auth");
+    this.router.navigate(['/login']);
   }
 }

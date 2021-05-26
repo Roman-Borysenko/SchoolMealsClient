@@ -1,11 +1,15 @@
-import { HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { env } from "process";
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  env = environment;
+
   constructor(private router: Router) { }
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,10 +31,23 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(cloned).pipe(tap(event => {
       if (event.type === HttpEventType.Response) {
-        if (event.status == 401) {
-          this.router.navigate(['/login']);
+        // if (event.status == 401) {
+        //   this.router.navigate(['/login']);
+        // }
+        switch (event.status) {
+          case 401: this.router.navigate(['/login']); break;
+          case 403: this.router.navigate(['/' + this.env.language]); break;
         }
       }
+    }), catchError((error: HttpErrorResponse) => {
+      // if (error.status === 401) {
+      //   this.router.navigate(['/login']);
+      // }
+      switch (error.status) {
+        case 401: this.router.navigate(['/login']); break;
+        case 403: this.router.navigate(['/' + this.env.language]); break;
+      }
+      return throwError(error)
     }));
   }
 }

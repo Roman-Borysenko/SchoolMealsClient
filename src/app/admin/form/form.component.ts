@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CroppedEvent } from 'ngx-photo-editor';
 import { AdminService } from 'src/app/services/admin.service';
 import { RequestService } from 'src/app/services/request.service';
 import { environment } from 'src/environments/environment';
 import { Scheme } from '../datatable/datatable.component';
+import { CKEditorComponent } from 'ng2-ckeditor';
 
 export class FormType {
   Text: string = "Text";
@@ -17,6 +16,9 @@ export class FormType {
   Image: string = "Image";
   CheckBox: string = "CheckBox";
   Multiselect: string = "Multiselect";
+  EmailAddress: string = "EmailAddress";
+  Date: string = "Date";
+  Disable: string = "Disable";
 }
 
 @Component({
@@ -31,7 +33,18 @@ export class FormComponent implements OnInit {
   isCropped: boolean = false;
   errors: Array<string> | undefined;
   showErrorPopup: boolean = false;
+  operationType: string = "";
   scheme: Scheme = {} as Scheme;
+
+  name = 'ng2-ckeditor';
+  ckeConfig: CKEDITOR.config = {
+    allowedContent: false,
+    extraPlugins: 'divarea',
+    forcePasteAsPlainText: true
+  };
+  mycontent: string = "asdasd";
+  log: string = '';
+  @ViewChild("myckeditor") ckeditor: CKEditorComponent | undefined;
   
   result: any;
   images: any = {};
@@ -63,7 +76,9 @@ export class FormComponent implements OnInit {
       this.urlParams = params;
     });
 
-    this.requestService.get<Scheme>("api/admin/getscheme?modelName=" + this.urlParams.schema + "&operation=" + (this.urlParams.slug ? "Edit" : "Add")).subscribe(res => { 
+    this.operationType = this.urlParams.slug ? "Edit" : "Add";
+
+    this.requestService.get<Scheme>("api/admin/getscheme?modelName=" + this.urlParams.schema + "&operation=" + this.operationType).subscribe(res => { 
       this.scheme = this.adminService.convertProperyNameForScheme(res);
       this.getData(res);
       this.getRelatedData(res);
@@ -115,10 +130,10 @@ export class FormComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+    // console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
+    // console.log(items);
   }
 
   onSent($event: any): void {
@@ -136,8 +151,12 @@ export class FormComponent implements OnInit {
         this.result.tagsIds = this.result.tagsIds.map(function(item: any) {return item.id ? item.id : item})
       }
 
+      if (this.result.diseaseIds) {
+        this.result.diseaseIds = this.result.diseaseIds.map(function(item: any) {return item.id ? item.id : item})
+      }
+
       if (this.result.image !== undefined) {
-        if (Object.values(this.images).length > 0)
+        if (this.operationType && this.operationType === "Add")
           this.result.image = "true";
 
         request = {

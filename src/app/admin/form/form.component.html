@@ -7,12 +7,6 @@
           <div class="col-sm-6">
             <h1>{{scheme.name}}</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Validation</li>
-            </ol>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -57,13 +51,29 @@
 
                     <input *ngSwitchCase="formType.Number" type="number" class="form-control" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
 
+                    <input *ngSwitchCase="formType.EmailAddress" type="email" class="form-control" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+
+                    <input *ngSwitchCase="formType.Date" type="datetime-local" class="form-control" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
+
+                    <input *ngSwitchCase="formType.Disable" type="text" class="form-control" [ngModel]='result[property.propName]' [ngModelOptions]="{standalone: true}" disabled>
+
                     <select *ngSwitchCase="formType.List" class="form-control select2" [(ngModel)]='result[property.propName]' [ngModelOptions]="{standalone: true}">
-                        <option [ngValue]="">Не вибрано</option>
+                        <option [ngValue]="null">Не вибрано</option>
                         <option *ngFor="let item of relatedData[property.propName]" [ngValue]="item.id" [selected]="item.id == result[property.propName]">{{item.name}}</option>
                     </select>
+                    
+                    <ckeditor *ngSwitchCase="formType.MultilineText" 
+                      [(ngModel)]="result[property.propName]" 
+                      [ngModelOptions]="{standalone: true}"
+                      #myckeditor="ngModel"
+                      name="myckeditor"
+                      required
+                      [config]="ckeConfig" 
+                      debounce="500" 
+                      >
+                    </ckeditor>
 
-                    <angular-editor *ngSwitchCase="formType.MultilineText" [placeholder]="'Enter text here...'" [(ngModel)]="result[property.propName]" [ngModelOptions]="{standalone: true}"></angular-editor>
-                  
+
                     <div *ngSwitchCase="formType.Image">
                       <div class="input-group mb-2">
                         <div class="custom-file">
@@ -122,6 +132,6 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+    <!-- /.content -->  
   </div>
   <!-- /.content-wrapper -->

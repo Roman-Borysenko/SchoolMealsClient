@@ -4,7 +4,7 @@
             <a href="#"><span>School</span>Food</a>
         </div>
 
-        <div class="login__form">
+        <div class="login__form" *ngIf="loginForm">
             <h1>Вхід</h1>
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form__element">
@@ -24,6 +24,33 @@
                         </div>
                     </div>
                     <span class="form__error" *ngFor="let error of errorsToDisplay.get('password')">{{error}}</span>
+                </div>
+                <div class="form__group">
+                    <button>Ввійти</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="login__form" *ngIf="!loginForm">
+            <h1>Зміна пароля</h1>
+            <form [formGroup]="changePassword" (ngSubmit)="onChangePassword()">
+                <div class="form__element">
+                    <div class="form__group">
+                        <input type="password" placeholder="New password" formControlName="newPassword">
+                        <div class="form__icon">
+                            <fa-icon [icon]="faLock"></fa-icon>
+                        </div>
+                    </div>
+                    <span class="form__error" *ngFor="let error of errorsToDisplay.get('newPassword')">{{error}}</span>
+                </div>
+                <div class="form__element">
+                    <div class="form__group">
+                        <input type="password" placeholder="Repeat password" formControlName="repeatedPassword">
+                        <div class="form__icon">
+                            <fa-icon [icon]="faLock"></fa-icon>
+                        </div>
+                    </div>
+                    <span class="form__error" *ngFor="let error of errorsToDisplay.get('repeatedPassword')">{{error}}</span>
                 </div>
                 <div class="form__group">
                     <button>Ввійти</button>

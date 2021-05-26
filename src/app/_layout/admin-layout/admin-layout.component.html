@@ -7,10 +7,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
+          <a [routerLink]="[ '/admin' ]" class="nav-link">Адмін-панель</a>
         </li>
       </ul>
     </nav>
@@ -19,31 +16,31 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <span class="brand-text font-weight-light">AdminPanel</span>
+      <a [routerLink]="[ '/' + env.language ]" class="brand-link">
+        <span class="brand-text font-weight-light">SchoolFood</span>
       </a>
   
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <!-- <div class="image">
+        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div> -->
+          </div>
           <div class="info">
             <a href="#" class="d-block">Alexander Pierce</a>
           </div>
-        </div>
+        </div> -->
   
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item" *ngFor="let category of categories">
                 <a [routerLink]="[ '/admin', category.slug ]" class="nav-link">
-                  <fa-icon [icon]="faBook"></fa-icon>
+                  <fa-icon [icon]="faBook" class="mr-2"></fa-icon>
                   <p>
                     {{category.name}}
-                    <span class="right badge badge-danger">New</span>
+                    <!-- <span class="right badge badge-danger">New</span> -->
                   </p>
                 </a>
             </li>
@@ -64,7 +61,7 @@
   
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      <strong><a href="https://adminlte.io">AdminLTE.io</a></strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.1.0

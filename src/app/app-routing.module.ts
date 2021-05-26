@@ -13,13 +13,13 @@ import { AppLayoutComponent } from "./_layout/app-layout/app-layout.component";
 import { IndexComponent } from "./admin/index/index.component";
 import { DatatableComponent } from "./admin/datatable/datatable.component";
 import { FormComponent } from "./admin/form/form.component";
+import { WishListComponent } from "./wish-list/wish-list.component";
 
 
 const routes: Routes = [
   { path: "login", component: LoginPageComponent },
   {
-    path: "admin",
-    component: AdminLayoutComponent,
+    path: "admin", component: AdminLayoutComponent,
     children: [
       { path: "", component: IndexComponent },
       { path: ":schema", component: DatatableComponent },
@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: ":lang", component: MainPageComponent },
       { path: ":lang/login", component: LoginPageComponent },
       { path: ":lang/cart", component: CartPageComponent },
+      { path: ":lang/wish-list", component: WishListComponent },
       { path: ":lang/blog", component: BlogPageComponent },
       { path: ":lang/blog/:slug", component: ArticlePageComponent },
       { path: ":lang/:category", component: CategoryPageComponent },

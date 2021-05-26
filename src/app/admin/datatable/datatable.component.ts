@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { environment } from 'src/environments/environment';
@@ -26,7 +26,7 @@ export interface Data {
 
 export class Paginator {
   size: number = 0;
-  take: number = 2;
+  take: number = 20;
   page: number = 1;
   quantityPages: number = 0;
   pages: Array<any> = new Array(0);
@@ -48,11 +48,14 @@ export class DatatableComponent implements OnInit {
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
 
+  lock:boolean = false;
   env = environment;
   scheme: Scheme = {} as Scheme;
-  result: Data = {} as Data;
+  // result: Data = {data: new Array<any>()} as Data;
+  result: Array<any> = new Array<any>();
   paginator: Paginator = new Paginator();
   urlParams: Params = {};
+  showAddButton: boolean = true;
 
   constructor(
     private requestService: RequestService,
@@ -63,6 +66,12 @@ export class DatatableComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => { 
       this.urlParams = params;
+      this.result = new Array<any>();
+
+      if (this.urlParams.schema == "Order")
+        this.showAddButton = false;
+      else
+        this.showAddButton = true;
 
       this.requestService.get<Scheme>("api/admin/getscheme?modelName=" + this.urlParams.schema + "&operation=Show").subscribe(res => { 
         this.scheme = this.adminService.convertProperyNameForScheme(res);
@@ -73,15 +82,18 @@ export class DatatableComponent implements OnInit {
 
   getData(scheme: Scheme, pageSet: number = -1): void {
     if (scheme.url.Get) {
-      if (pageSet != -1) {
-        this.paginator.page = pageSet;
-      }
+      // if (pageSet != -1) {
+      //   this.paginator.page = pageSet;
+      // }
 
-      this.requestService.get<Data>(scheme.url.Get + "?skip=" + ((this.paginator.page * this.paginator.take) - this.paginator.take) + "&take=" + this.paginator.take + "&lang=" + this.env.language).subscribe(res => { 
-        this.result = res;
-  
-        this.paginator.initPaginator(res.quantity);
-      });
+      if (!this.lock) {
+        this.lock = true;
+        this.requestService.get<Data>(scheme.url.Get + "?skip=" + this.result.length + "&take=" + this.paginator.take + "&lang=" + this.env.language).subscribe(res => { 
+          this.result = this.result.concat(res.data);
+          this.lock = false;
+          // this.paginator.initPaginator(res.quantity);
+        });
+      }
     }
   }
 
@@ -106,6 +118,12 @@ export class DatatableComponent implements OnInit {
   onClickNextBtn(): void {
     if (this.paginator.page < this.paginator.quantityPages) {
       this.paginator.page++;
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    if (pageYOffset > document.body.scrollHeight - document.body.clientHeight * 2) {
       this.getData(this.scheme);
     }
   }

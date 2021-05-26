@@ -1,5 +1,7 @@
-<app-product-section [title]="newDishesTitle" [dishes]="newdDishes"></app-product-section>
+<app-product-section *ngIf="newdDishes.length > 0" [title]="newDishesTitle" [dishes]="newdDishes"></app-product-section>
 
-<app-product-section [title]="recommendedDishesTitle" [dishes]="recommendedDishes"></app-product-section>
+<app-product-section *ngIf="recommendedDishes.length > 0" [title]="recommendedDishesTitle" [dishes]="recommendedDishes"></app-product-section>
 
-<app-blog-section [title]="blogArticlesTitle" [articles]="blogArticles"></app-blog-section>
+<app-product-section *ngIf="recommendedDishesForUser.length > 0" [title]="recommendedDishesForUserTitle" [dishes]="recommendedDishesForUser"></app-product-section>
+
+<app-blog-section *ngIf="blogArticles.length > 0" [title]="blogArticlesTitle" [articles]="blogArticles"></app-blog-section>

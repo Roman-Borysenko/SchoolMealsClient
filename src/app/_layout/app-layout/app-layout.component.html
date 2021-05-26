@@ -1,5 +1,14 @@
 <ng-template #productPopup></ng-template>
 
+<div class="admin-link" *ngIf="isAdmin">
+    <a [routerLink]="[ '/admin' ]"><fa-icon [icon]="faCog"></fa-icon></a>
+</div>
+
+<div class="message-popup" [ngClass]="{'active': messageText.length > 0}">
+    <div class="message-icon"><fa-icon [icon]="faCheck"></fa-icon></div>
+    <div class="message-text">{{messageText}}</div>
+</div>
+
 <header>
     <div class="header">
         <div class="header__logo">
@@ -23,7 +32,7 @@
                 </a>
                 <span>{{cartDish.length}}</span>
                 <div class="header__bar__order hide__el">
-                    <ul>
+                    <ul *ngIf="cartDish.length > 0">
                         <li *ngFor="let dish of cartDish">
                             <div class="header__order_container">
                                 <a (click)="deleteOrderedDish(dish.id)" class="header__order__delete"></a>
@@ -41,16 +50,21 @@
                             <a (click)="confirmOrder()">Замовити</a>
                         </div>
                     </ul>
+
+                    <span *ngIf="cartDish.length == 0">Пусто</span>
                 </div>
             </div>
-            <div>
-                <img src="assets/images/icons/locked.svg" alt="Login">
+            <div class="header__lang mask__el" title="Список побажань">
+                <a [routerLink]="[ '/' + env.language, 'wish-list' ]"><fa-icon [icon]="faHeart"></fa-icon></a>
             </div>
-            <div class="header__lang mask__el">
+            <!-- <div class="header__lang mask__el">
                 <span>{{env.language}}</span>
                 <ul class="header__langs hide__el">
                     <li *ngFor="let lang of languages" [ngClass]="{'active': lang.default}" (click)="onLangClick($event)">{{lang.nameAbbreviation}}</li>
                 </ul>
+            </div> -->
+            <div class="header__lang mask__el" title="Вихід" (click)="onLogout()">
+                <span><fa-icon [icon]="faSignOutAlt"></fa-icon></span>
             </div>
     
             <div class="burger__conatiner">
@@ -71,21 +85,21 @@
 <footer>
   <div class="footer">
       <div class="footers__logo">
-          <a href="#"><span>School</span>Food</a>
+        <a [routerLink]="[ env.language ]"><span>School</span>Food</a>
       </div>
 
       <div class="footer__information">
           <ul>
-                <li><a [routerLink]="[ env.language, 'blog' ]">Blog</a></li>
-                <li><a href="#">About</a></li>
+                <li><a [routerLink]="[ env.language, 'blog' ]">Блог</a></li>
+                <!-- <li><a href="#">About</a></li>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Test</a></li>
-                <li><a href="#">FAQ</a></li>
+                <li><a href="#">FAQ</a></li> -->
           </ul>
       </div>
 
       <div class="footer__contacts">
-          <h2>Contact us</h2>
+          <h2>Наші контакти</h2>
           <ul>
               <li>60, 29th Street, San Francisco, CA 94110, USA</li>
               <li>Phone: +380895647823</li>

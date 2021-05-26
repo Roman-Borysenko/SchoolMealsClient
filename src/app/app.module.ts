@@ -29,9 +29,12 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatatableComponent } from './admin/datatable/datatable.component';
 import { FormComponent } from './admin/form/form.component';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxPhotoEditorModule } from 'ngx-photo-editor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { ChartsModule } from 'ng2-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 const INTERCEPTOR_PROVIDR: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -59,7 +62,8 @@ const INTERCEPTOR_PROVIDR: Provider = {
     AdminLayoutComponent,
     IndexComponent,
     DatatableComponent,
-    FormComponent
+    FormComponent,
+    WishListComponent
   ],
   imports: [
     BrowserModule,
@@ -71,10 +75,12 @@ const INTERCEPTOR_PROVIDR: Provider = {
     NgxImageZoomModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularEditorModule,
     NgxPhotoEditorModule,
     FormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    ChartsModule,
+    NgbModule,
+    CKEditorModule
   ],
   providers: [INTERCEPTOR_PROVIDR],
   bootstrap: [AppComponent]
